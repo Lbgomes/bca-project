@@ -1,5 +1,5 @@
 
-export interface Vehicle {
+export interface VehicleType {
     make: string,
     model: string,
     engineSize: string,
