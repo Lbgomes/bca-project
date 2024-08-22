@@ -44,17 +44,35 @@ export const Title = styled.h2`
   font-weight: 500;
 `
 
+export const Info = styled.p`
+  color: ${({ theme }) => theme.colors.black};
+  font-size: ${({ theme }) => theme.sizes.small};
+  font-weight: 500;
+
+  svg {
+    width: 1.4rem;
+  }
+`
 export const Favourite = styled.div`
-width: 2rem;
-height: 2rem;
-display: flex;
-justify-content: center;
-align-items: center;
-background-color: ${({ theme }) => theme.colors.white};
-position: absolute;
-top: 1rem;
-right: 1rem;
-cursor: pointer;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  cursor: pointer;
+
+  svg {
+    color:  #E4672E;
+  }
+`
+export const ItemPerPage = styled.input`
+
+  width: 3rem;
+  height: 2rem;
+
 `
 
 export const PaginationContainer = styled.div`

@@ -1851,6 +1851,22 @@
     "@babel/runtime" "^7.20.7"
     "@styled-icons/styled-icon" "^10.7.0"
 
+"@styled-icons/boxicons-regular@^10.47.0":
+  version "10.47.0"
+  resolved "https://registry.npmjs.org/@styled-icons/boxicons-regular/-/boxicons-regular-10.47.0.tgz"
+  integrity sha512-z8KczDp4VArXvOn8i2j66Xs4oX9oiiJEhMoHydY3uC9kdtImcxhZ/xHPrgTJLkbK6f5ikwB4CKVnSqQGzzAJNw==
+  dependencies:
+    "@babel/runtime" "^7.20.7"
+    "@styled-icons/styled-icon" "^10.7.0"
+
+"@styled-icons/boxicons-solid@^10.47.0":
+  version "10.47.0"
+  resolved "https://registry.npmjs.org/@styled-icons/boxicons-solid/-/boxicons-solid-10.47.0.tgz"
+  integrity sha512-M795TXYtSJCpfr+ukHZfH9mA0j5MPlB5vwRCnU3O+dojAYla/zoaSashjhUbmlgzKNwALWNfzOqicSCAzU2fhg==
+  dependencies:
+    "@babel/runtime" "^7.20.7"
+    "@styled-icons/styled-icon" "^10.7.0"
+
 "@styled-icons/styled-icon@^10.7.0":
   version "10.7.1"
   resolved "https://registry.npmjs.org/@styled-icons/styled-icon/-/styled-icon-10.7.1.tgz"
@@ -3968,6 +3984,11 @@ data-view-byte-offset@^1.0.0:
     call-bind "^1.0.6"
     es-errors "^1.3.0"
     is-data-view "^1.0.1"
+
+date-fns@^3.6.0:
+  version "3.6.0"
+  resolved "https://registry.npmjs.org/date-fns/-/date-fns-3.6.0.tgz"
+  integrity sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==
 
 debug@^2.6.0:
   version "2.6.9"

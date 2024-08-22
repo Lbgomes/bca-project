@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@styled-icons/bootstrap": "^10.47.0",
+    "@styled-icons/boxicons-regular": "^10.47.0",
+    "@styled-icons/boxicons-solid": "^10.47.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -11,6 +13,7 @@
     "@types/node": "^16.18.105",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "date-fns": "^3.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-paginate": "^8.2.0",
@@ -46,8 +49,8 @@
     ]
   },
   "devDependencies": {
-    "@types/styled-components": "^5.1.34",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@types/styled-components": "^5.1.34",
     "babel-plugin-styled-components": "^2.1.4"
   }
 }
