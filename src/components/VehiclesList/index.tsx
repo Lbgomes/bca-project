@@ -1,6 +1,5 @@
 import { useCar } from "context/car";
 import { VehicleType } from "types/vehicle";
-import * as S from './styles';
 import VehicleItem from "components/VehicleItem";
 
 interface VehicleListProps {

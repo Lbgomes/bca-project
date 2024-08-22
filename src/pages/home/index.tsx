@@ -10,16 +10,22 @@ function Home() {
         label: string
         value: string
     }
+
+    const defaultFilter = { label: 'Select your filter', value: '0' };
+
     const { vehiclesData } = useCar()
+    
     const [favorites, setFavorites] = useState<VehicleType[]>([])
-    const [maker, setMaker] = useState<Options>({ label: 'Select your filter', value: '0' });
-    const [model, setModel] = useState<Options>({ label: 'Select your filter', value: '0' });
-    const [bidMin, setBidMin] = useState<Options>({ label: 'Select your filter', value: '0' });
-    const [bidMax, setBidMax] = useState<Options>({ label: 'Select your filter', value: '0' });
-    const [sortBy, setSortBy] = useState<Options>({ label: 'Select your filter', value: '0' });
-    const [isFavorite, setIsFavorite] = useState<Options>({ label: 'Select your filter', value: '0' });
     const [itemsPerPage, setItemsPerPage] = useState(10)
     const [itemOffset, setItemOffset] = useState(0);
+    const [filters, setFilters] = useState({
+        maker: defaultFilter,
+        model: defaultFilter,
+        bidMin: defaultFilter,
+        bidMax: defaultFilter,
+        sortBy: defaultFilter,
+        isFavorite: defaultFilter,
+    });
 
     const getModelsByMaker = (selectedMaker: string) => {
         return vehiclesData.reduce((acc, vehicle: VehicleType, index) => {
@@ -59,28 +65,27 @@ function Home() {
         { label: 'Auction date asc', value: '6' },
         { label: 'Auction date desc', value: '7' },
     ]
-    const allModels = getModelsByMaker(maker.label);
+    const allModels = getModelsByMaker(filters.maker.label);
 
 
 
     const filteredVehicles = useMemo(() => {
         const filtered = vehiclesData.filter(vehicle => {
-            const isMakerMatch = maker.value !== '0' ? vehicle.make === maker.label : true;
-            const isModelMatch = model.value !== '0' ? vehicle.model === model.label : true;
+            const isMakerMatch = filters.maker.value !== '0' ? vehicle.make === filters.maker.label : true;
+            const isModelMatch = filters.model.value !== '0' ? vehicle.model === filters.model.label : true;
+            const isFavoriteMatch = filters.isFavorite.value !== '0' ? (filters.isFavorite.label === 'Favorite' ? favorites.includes(vehicle) : !favorites.includes(vehicle)) : true;
 
-            const isFavoriteMatch = isFavorite.value !== '0' ? (isFavorite.label === 'Favorite' ? favorites.includes(vehicle) : !favorites.includes(vehicle)) : true;
+            const bidMinValue = parseInt(filters.bidMin.label);
+            const bidMaxValue = parseInt(filters.bidMax.label);
 
-            const bidMinValue = parseInt(bidMin.label);
-            const bidMaxValue = parseInt(bidMax.label);
-
-            const isBidMinMatch = bidMin.value !== '0' ? vehicle.startingBid >= bidMinValue : true;
-            const isBidMaxMatch = bidMax.value !== '0' ? vehicle.startingBid <= bidMaxValue : true;
+            const isBidMinMatch = filters.bidMin.value !== '0' ? vehicle.startingBid >= bidMinValue : true;
+            const isBidMaxMatch = filters.bidMax.value !== '0' ? vehicle.startingBid <= bidMaxValue : true;
 
             return isMakerMatch && isModelMatch && isBidMinMatch && isBidMaxMatch && isFavoriteMatch;
         });
 
         const sorted = filtered.sort((a, b) => {
-            switch (sortBy.value) {
+            switch (filters.sortBy.value) {
                 case '1':
                     return a.make.localeCompare(b.make);
                 case '2':
@@ -101,7 +106,8 @@ function Home() {
         });
 
         return sorted;
-    }, [vehiclesData, maker, model, isFavorite, bidMin, bidMax, favorites, sortBy]);
+
+    }, [vehiclesData, filters, favorites]);
 
     const endOffset = itemOffset + itemsPerPage;
     const pageCount = Math.ceil(filteredVehicles.length / itemsPerPage);
@@ -119,26 +125,40 @@ function Home() {
         }
     }
 
+    const handleFilterChange = (filterName: string) => (selectedOption: Options) => {
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            [filterName]: selectedOption,
+        }));
+    };
+
     useEffect(() => {
-        setModel({ label: '', value: '0' })
-    }, [maker])
+        handleFilterChange('model')(defaultFilter)
+    }, [filters.maker])
 
     useEffect(() => {
         const initialFavorites = vehiclesData.filter((vehicle: VehicleType) => vehicle.favourite === true)
         setFavorites(initialFavorites)
     }, [vehiclesData])
 
+    useEffect(() => {
+        setFilters(prevFilters => ({
+            ...prevFilters,
+            model: defaultFilter,
+        }));
+    }, [filters.maker]);
+
     return (
         <S.Main>
 
             <S.Title>Filters</S.Title>
             <S.FilterContainer>
-                <Filter title="Maker" filter={maker.label} setFilter={setMaker} options={allMakers} />
-                <Filter title="Model" filter={model.label} setFilter={setModel} options={allModels} value={maker.value} isDisabled={maker.value === '0'} />
-                <Filter title="Favorite" filter={isFavorite.label} setFilter={setIsFavorite} options={favoriteOptions} />
-                <Filter title="Starting bid minimum" filter={bidMin.label} setFilter={setBidMin} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
-                <Filter title="Starting bid maximum" filter={bidMax.label} setFilter={setBidMax} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
-                <Filter title="Order by" filter={sortBy.label} setFilter={setSortBy} options={sortByOptions} />
+                <Filter title="Maker" filter={filters.maker.label} setFilter={handleFilterChange('maker')} options={allMakers} />
+                <Filter title="Model" filter={filters.model.label} setFilter={handleFilterChange('model')} options={allModels} value={filters.maker.value} isDisabled={filters.maker.value === '0'} />
+                <Filter title="Favorite" filter={filters.isFavorite.label} setFilter={handleFilterChange('isFavorite')} options={favoriteOptions} />
+                <Filter title="Starting bid minimum" filter={filters.bidMin.label} setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
+                <Filter title="Starting bid maximum" filter={filters.bidMax.label} setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
+                <Filter title="Order by" filter={filters.sortBy.label} setFilter={handleFilterChange('sortBy')} options={sortByOptions} />
                 <S.ItemPerPage type="number" value={itemsPerPage} onChange={(e) => setItemsPerPage(parseInt(e.target.value))} />
             </S.FilterContainer>
 
