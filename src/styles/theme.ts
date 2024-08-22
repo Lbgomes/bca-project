@@ -13,7 +13,7 @@ const theme: DefaultTheme = {
     primary: '#E4672E',
     white: '#FFFFFF',
     black: '#101010',
-    gray: 'rgba(255, 255, 255, 0.4)',
+    gray: '#d3d3d3',
     neutral: '#EBEBEB',
     background: '#f2f4f5',
     danger: '#F5365C'

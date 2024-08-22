@@ -1,30 +1,138 @@
 import styled from "styled-components";
 
 export const Main = styled.div`
-
-`
-
-export const ImageContainer = styled.div`
-
-
-`
-
-
-export const Container = styled.div`
+    width: 100%;
+    background-color: ${({ theme }) => theme.colors.background};
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
 `
 
-export const HighlightsContainer = styled.div`
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+export const Container = styled.div`
+    max-width: 1200px;
     width: 100%;
-    padding: 1rem;
-    align-items: center;
-    position: relative;
+    display: flex;
+    flex-direction: column;
 
 `
 
+export const ContentContainer = styled.div`
+
+display: flex;
+gap: 1rem;
+`
+
+export const ImageContainer = styled.div`
+    display: flex;
+    background-color: ${({ theme }) => theme.colors.white};
+    padding: 1.5rem;
+    width: fit-content;
+`
+
+export const Image = styled.img`
+    max-width: 750px;
+    object-fit: cover;
+    aspect-ratio: 10/7;
+`
+
+
+export const InfoContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+    background-color: ${({ theme }) => theme.colors.white};
+
+`
+
+export const InfoText = styled.h2`
+
+    color: ${({ theme }) => theme.colors.primary};
+    font-size: ${({ theme }) => theme.sizes.large};
+    font-weight: 700;
+
+`
+
+export const DataContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 800px;
+    width: 100%;
+    padding: 2rem 1rem;
+
+`
+
+export const Title = styled.h2`
+margin-top: 1.5rem;
+    padding: 1rem 0;
+    border-top: 1px solid ${({ theme }) => theme.colors.gray};
+`
+
+export const HighlightDataContainer = styled.div`
+
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+`
+
+export const Highlight = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    svg {
+        width: 1.5rem;
+    }
+`
+
+
+export const HighlightText = styled.p`
+
+    color: ${({ theme }) => theme.colors.black};
+    font-size: 15px;
+    font-weight: 500;
+
+`
+
+export const List = styled.ul`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 130rem;
+  @media(max-width: 800px){
+  max-width: 80%;
+  }
+`
+
+export const Item = styled.li`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+`
+
+export const Text = styled.p`
+  font-size: 1rem;
+`
+export const DetailsContainer = styled.div`
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+
+
+`
+
+export const Detail = styled.div`
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+
+`
+
+export const DetailContent = styled.p`
+
+
+`

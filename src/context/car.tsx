@@ -16,7 +16,6 @@ export const CarContext = createContext({} as CarContextData);
 const CarContextProvider = ({ children }: CarProviderProps) => {
 
     const [carData, setCarData] = useState<VehicleType>({} as VehicleType);
-    console.log(carData, 'carData');
 
     const handleCarData = (data: VehicleType) => {
         setCarData(data);

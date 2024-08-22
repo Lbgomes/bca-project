@@ -2,7 +2,7 @@ import { VehicleType } from '../../types/vehicle';
 import Data from '../../vehicles_dataset.json'
 import { useContext, useEffect, useMemo, useState } from 'react';
 import * as S from './styles'
-import placeholder from '../../assets/car.avif'
+import placeholder from '../../assets/car.jpg'
 import Filter from 'components/Filter';
 import ReactPaginate from 'react-paginate';
 import * as B from '@styled-icons/bootstrap'
