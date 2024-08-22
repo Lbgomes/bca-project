@@ -10,39 +10,39 @@ function Home() {
         label: string
         value: string
     }
-    const { vehiclesData} = useCar()
+    const { vehiclesData } = useCar()
     const [favorites, setFavorites] = useState<VehicleType[]>([])
-    const [maker, setMaker] = useState<Options>({ label: '', value: '0' })
-    const [model, setModel] = useState<Options>({ label: '', value: '0' })
-    const [bidMin, setBidMin] = useState<Options>({ label: '', value: '0' })
-    const [bidMax, setBidMax] = useState<Options>({ label: '', value: '0' })
-    const [sortBy, setSortBy] = useState<Options>({ label: '', value: '0' })
+    const [maker, setMaker] = useState<Options>({ label: 'Select your filter', value: '0' });
+    const [model, setModel] = useState<Options>({ label: 'Select your filter', value: '0' });
+    const [bidMin, setBidMin] = useState<Options>({ label: 'Select your filter', value: '0' });
+    const [bidMax, setBidMax] = useState<Options>({ label: 'Select your filter', value: '0' });
+    const [sortBy, setSortBy] = useState<Options>({ label: 'Select your filter', value: '0' });
+    const [isFavorite, setIsFavorite] = useState<Options>({ label: 'Select your filter', value: '0' });
     const [itemsPerPage, setItemsPerPage] = useState(10)
-    const [isFavorite, setIsFavorite] = useState<Options>({ label: '', value: '0' })
     const [itemOffset, setItemOffset] = useState(0);
 
     const getModelsByMaker = (selectedMaker: string) => {
         return vehiclesData.reduce((acc, vehicle: VehicleType, index) => {
             if (vehicle.make === selectedMaker && !acc.some(item => item.label === vehicle.model)) {
-                acc.push({ label: vehicle.model, value: index });
+                acc.push({ label: vehicle.model, value: index.toString() });
             }
             return acc;
-        }, [] as { label: string, value: number }[]);
+        }, [] as { label: string, value: string }[]);
     };
 
     const allMakers = vehiclesData.reduce((acc, vehicle: VehicleType, index) => {
         if (!acc.some(item => item.label === vehicle.make)) {
-            acc.push({ label: vehicle.make, value: index });
+            acc.push({ label: vehicle.make, value: index.toString() });
         }
         return acc;
-    }, [] as { label: string, value: number }[]);
+    }, [] as { label: string, value: string }[]);
 
     const allBids = vehiclesData.reduce((acc, vehicle: VehicleType, index) => {
         if (!acc.some(item => item.label === vehicle.startingBid.toString())) {
-            acc.push({ label: vehicle.startingBid.toString(), value: index });
+            acc.push({ label: vehicle.startingBid.toString(), value: index.toString() });
         }
         return acc;
-    }, [] as { label: string, value: number }[]);
+    }, [] as { label: string, value: string }[]);
 
 
     const favoriteOptions = [
@@ -65,16 +65,16 @@ function Home() {
 
     const filteredVehicles = useMemo(() => {
         const filtered = vehiclesData.filter(vehicle => {
-            const isMakerMatch = maker.label ? vehicle.make === maker.label : true;
-            const isModelMatch = model.label ? vehicle.model === model.label : true;
+            const isMakerMatch = maker.value !== '0' ? vehicle.make === maker.label : true;
+            const isModelMatch = model.value !== '0' ? vehicle.model === model.label : true;
 
-            const isFavoriteMatch = isFavorite.label ? (isFavorite.label === 'Favorite' ? favorites.includes(vehicle) : !favorites.includes(vehicle)) : true;
+            const isFavoriteMatch = isFavorite.value !== '0' ? (isFavorite.label === 'Favorite' ? favorites.includes(vehicle) : !favorites.includes(vehicle)) : true;
 
             const bidMinValue = parseInt(bidMin.label);
             const bidMaxValue = parseInt(bidMax.label);
 
-            const isBidMinMatch = bidMin.label ? vehicle.startingBid >= bidMinValue : true;
-            const isBidMaxMatch = bidMax.label ? vehicle.startingBid <= bidMaxValue : true;
+            const isBidMinMatch = bidMin.value !== '0' ? vehicle.startingBid >= bidMinValue : true;
+            const isBidMaxMatch = bidMax.value !== '0' ? vehicle.startingBid <= bidMaxValue : true;
 
             return isMakerMatch && isModelMatch && isBidMinMatch && isBidMaxMatch && isFavoriteMatch;
         });
@@ -101,9 +101,7 @@ function Home() {
         });
 
         return sorted;
-
     }, [vehiclesData, maker, model, isFavorite, bidMin, bidMax, favorites, sortBy]);
-
 
     const endOffset = itemOffset + itemsPerPage;
     const pageCount = Math.ceil(filteredVehicles.length / itemsPerPage);
@@ -136,7 +134,7 @@ function Home() {
             <S.Title>Filters</S.Title>
             <S.FilterContainer>
                 <Filter title="Maker" filter={maker.label} setFilter={setMaker} options={allMakers} />
-                <Filter title="Model" filter={model.label} setFilter={setModel} options={allModels} value={maker.value} isDisabled={!maker.label} />
+                <Filter title="Model" filter={model.label} setFilter={setModel} options={allModels} value={maker.value} isDisabled={maker.value === '0'} />
                 <Filter title="Favorite" filter={isFavorite.label} setFilter={setIsFavorite} options={favoriteOptions} />
                 <Filter title="Starting bid minimum" filter={bidMin.label} setFilter={setBidMin} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
                 <Filter title="Starting bid maximum" filter={bidMax.label} setFilter={setBidMax} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
