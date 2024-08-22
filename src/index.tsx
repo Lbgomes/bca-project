@@ -5,14 +5,18 @@ import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import { ThemeProvider } from 'styled-components'
 import theme from './styles/theme'
+import { CarContextProvider } from 'context/car';
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <ThemeProvider theme={theme} >
-      <App />
-    </ThemeProvider>
+    <CarContextProvider>
+      <ThemeProvider theme={theme} >
+        <App />
+      </ThemeProvider>
+    </CarContextProvider>
   </React.StrictMode>
 );
 

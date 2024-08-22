@@ -22,12 +22,15 @@ gap: 1rem;
 `
 
 export const VehicleContainer = styled.div`
+a{
   display: flex;
   width: 100%;
   padding: 1rem;
   background-color: ${({ theme }) => theme.colors.white};
   align-items: center;
-  position: relative;
+  text-decoration: none;
+}
+position: relative;
 `
 
 export const Image = styled.img`
@@ -46,7 +49,7 @@ export const Title = styled.h2`
 
 export const Info = styled.p`
   color: ${({ theme }) => theme.colors.black};
-  font-size: ${({ theme }) => theme.sizes.small};
+  font-size: ${({ theme }) => theme.sizes.smallest};
   font-weight: 500;
 
   svg {
@@ -62,6 +65,9 @@ export const Favourite = styled.div`
   position: absolute;
   top: 1rem;
   right: 1rem;
+  border-radius: 50%;
+  padding: 0.3rem;
+  background-color: ${({ theme }) => theme.colors.neutral};
   cursor: pointer;
 
   svg {
