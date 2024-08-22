@@ -58,7 +58,7 @@ function Car() {
                                     <S.HighlightText>{carData.fuel}</S.HighlightText>
                                 </S.Highlight>
                                 <S.Highlight>
-                                    <fl.Gas />
+                                    <fl.Engine />
                                     <S.HighlightText>Engine Size</S.HighlightText>
                                     <S.HighlightText>{carData.engineSize}</S.HighlightText>
                                 </S.Highlight>
