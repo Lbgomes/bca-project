@@ -1,5 +1,6 @@
 import { createContext, ReactNode, useContext, useState } from "react";
 import { VehicleType } from "types/vehicle";
+import Data from '../vehicles_dataset.json'
 
 
 type CarProviderProps = {
@@ -7,20 +8,22 @@ type CarProviderProps = {
 };
 
 type CarContextData = {
-    carData: VehicleType;
+    vehiclesData: VehicleType[];
+    carData?: VehicleType;
     handleCarData: (data: VehicleType) => void;
 };
 
 export const CarContext = createContext({} as CarContextData);
 
 const CarContextProvider = ({ children }: CarProviderProps) => {
-
-    const [carData, setCarData] = useState<VehicleType>({} as VehicleType);
+    const [vehiclesData, setVehiclesData] = useState<VehicleType[]>(Data)
+    const [carData, setCarData] = useState<VehicleType>();
 
     const handleCarData = (data: VehicleType) => {
         setCarData(data);
     };
     const value = {
+        vehiclesData,
         carData,
         handleCarData
     };

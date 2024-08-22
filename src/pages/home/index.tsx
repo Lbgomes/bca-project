@@ -1,22 +1,16 @@
 import { VehicleType } from '../../types/vehicle';
-import Data from '../../vehicles_dataset.json'
-import { useContext, useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import * as S from './styles'
-import placeholder from '../../assets/car.jpg'
 import Filter from 'components/Filter';
 import ReactPaginate from 'react-paginate';
-import * as B from '@styled-icons/bootstrap'
-import * as Br from '@styled-icons/boxicons-regular'
-import * as Bs from '@styled-icons/boxicons-solid'
 import { useCar } from 'context/car';
-import { Link, useLocation } from 'react-router-dom';
+import VehicleList from 'components/VehiclesList';
 function Home() {
     interface Options {
         label: string
         value: string
     }
-    const { handleCarData } = useCar()
-    const [vehiclesData, setVehiclesData] = useState<VehicleType[]>(Data)
+    const { vehiclesData} = useCar()
     const [favorites, setFavorites] = useState<VehicleType[]>([])
     const [maker, setMaker] = useState<Options>({ label: '', value: '0' })
     const [model, setModel] = useState<Options>({ label: '', value: '0' })
@@ -24,7 +18,6 @@ function Home() {
     const [bidMax, setBidMax] = useState<Options>({ label: '', value: '0' })
     const [sortBy, setSortBy] = useState<Options>({ label: '', value: '0' })
     const [itemsPerPage, setItemsPerPage] = useState(10)
-    const a = useLocation()
     const [isFavorite, setIsFavorite] = useState<Options>({ label: '', value: '0' })
     const [itemOffset, setItemOffset] = useState(0);
 
@@ -117,9 +110,6 @@ function Home() {
     const currentItems = filteredVehicles.slice(itemOffset, endOffset);
     const handlePageClick = (event: any) => {
         const newOffset = (event.selected * itemsPerPage) % filteredVehicles.length;
-        console.log(
-            `User requested page number ${event.selected}, which is offset ${newOffset}`
-        );
         setItemOffset(newOffset);
     };
 
@@ -155,22 +145,8 @@ function Home() {
             </S.FilterContainer>
 
             <S.Container>
-                {currentItems.map((vehicle: VehicleType, index) => (
-                    <S.VehicleContainer key={index}>
-                        <Link to={`/${index + 1}`} onClick={() => handleCarData(vehicle)}>
-                            <S.Image src={placeholder} />
-                            <S.DataContainer>
-                                <S.Title>{vehicle.make} {vehicle.model}</S.Title>
-                                <S.Info>{vehicle.auctionDateTime}</S.Info>
-                                <S.Info> <B.Speedometer /> {vehicle.mileage}km</S.Info>
-                            </S.DataContainer>
-                            Starting Bid: {vehicle.startingBid}
-                        </Link>
-                        <S.Favourite onClick={() => handleFavourite(vehicle)}>
-                            {favorites.includes(vehicle) ? <Bs.Heart /> : <Br.Heart />}
-                        </S.Favourite>
-                    </S.VehicleContainer>
-                ))}
+                <VehicleList currentItems={currentItems} handleFavourite={handleFavourite} favorites={favorites} />
+
                 <S.PaginationContainer>
                     <ReactPaginate
                         breakLabel="..."

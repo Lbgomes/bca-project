@@ -41,16 +41,19 @@ export const InfoContainer = styled.div`
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+    height: fit-content;
     background-color: ${({ theme }) => theme.colors.white};
 
 `
+export const InfoTitle = styled.h1`
 
+    color: ${({ theme }) => theme.colors.black};
+    font-size: ${({ theme }) => theme.sizes.small};
+`
 export const InfoText = styled.h2`
-
-    color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.black};
     font-size: ${({ theme }) => theme.sizes.large};
     font-weight: 700;
-
 `
 
 export const DataContainer = styled.div`
