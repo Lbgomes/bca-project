@@ -48,7 +48,7 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
     }, [vehicle.auctionDateTime]);
 
     useEffect(() => {
-        setIsLoading(true); 
+        setIsLoading(true);
     }, [page]);
 
     const { days, hours } = timeLeft;
@@ -57,29 +57,59 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
         <S.VehicleContainer>
             <Link to={`/${index + 1}`} onClick={() => { handleCarData(vehicle); window.scrollTo(0, 0); }}>
                 {
-                    isLoading ? <Skeleton width={215} height={162.4} /> : <S.Image src={placeholder} />
+                    isLoading ?
+                        <S.SkeletonContainer aria-label='loading'> <Skeleton width={215} height={162.4} /></S.SkeletonContainer> :
+                        <S.Image src={placeholder} />
                 }
 
                 <S.DataContainer>
                     <S.Title>
-                        {isLoading ? <Skeleton /> : `${vehicle.make} ${vehicle.model}`}
+                        {isLoading ?
+                            <S.SkeletonContainer aria-label='loading'>
+                                <Skeleton aria-label="loading" />
+                            </S.SkeletonContainer> :
+                            <S.Info>
+                                {vehicle.make} {vehicle.model}
+                            </S.Info>
+                        }
                     </S.Title>
-                    <S.Info>
-                        {isLoading ? <Skeleton /> : (days === 0 && hours === 0) ? 'The event has started' :
-                            `The event will begin in ${days} ${days === 1 ? 'day' : 'days'} and ${hours} ${hours === 1 ? 'hour' : 'hours'}`
+                    <S.InfoContainer>
+                        {isLoading ?
+                            <S.SkeletonContainer aria-label='loading'>
+                                <Skeleton aria-label="loading" />
+                            </S.SkeletonContainer> :
+                            <S.Info>
+                                {
+                                    (days === 0 && hours === 0) ?
+                                        'The event has started' :
+                                        `The event will begin in ${days} ${days === 1 ? 'day' : 'days'} and ${hours} ${hours === 1 ?
+                                            'hour' : 'hours'}`
+                                }
+                            </S.Info>
                         }
-                    </S.Info>
-                    <S.Info>
+                    </S.InfoContainer>
+                    <S.InfoContainer>
                         {
-                            isLoading ? <Skeleton /> : (<> <B.Speedometer /> {vehicle.mileage}km</>)
+                            isLoading ?
+                                <S.SkeletonContainer aria-label='loading'>
+                                    <Skeleton aria-label="loading" />
+                                </S.SkeletonContainer> :
+                                (<S.Info>
+                                    <B.Speedometer /> {vehicle.mileage}km
+                                </S.Info>
+                                )
                         }
-                    </S.Info>
-                    {isLoading ? <Skeleton /> : `Starting Bid: ${vehicle.startingBid}`
+                    </S.InfoContainer>
+                    {isLoading ?
+                        <S.SkeletonContainer aria-label='loading'>
+                            <Skeleton aria-label="loading" />
+                        </S.SkeletonContainer> :
+                        <S.Info> Starting Bid: {vehicle.startingBid}</S.Info>
                     }
                 </S.DataContainer>
             </Link>
             <S.Favourite onClick={() => handleFavourite(vehicle)}>
-                {isFavorite ? <Bs.Heart /> : <Br.Heart />}
+                {isFavorite ? <Bs.Heart aria-label="favourite" /> : <Br.Heart aria-label="non-favourite" />}
             </S.Favourite>
         </S.VehicleContainer>
     );

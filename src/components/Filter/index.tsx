@@ -19,8 +19,10 @@ export default function Filter({ title, isDisabled = false, filter, options = []
             <S.Title>{title}</S.Title>
             <Select 
                 options={enhancedOptions} 
+                defaultMenuIsOpen
                 isDisabled={isDisabled} 
                 onChange={(e) => setFilter(e as { label: string, value: string })} 
+                aria-label='Filter'
             />
         </S.Container>
     );

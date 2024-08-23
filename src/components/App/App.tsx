@@ -1,11 +1,13 @@
 import Routes from 'components/Routes';
-import './App.css';
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 
 function App() {
-
-  return (
-    <Routes />
-  );
+    return (
+        <BrowserRouter>
+            <Routes aria-label="Routes" />
+        </BrowserRouter>
+    );
 }
 
 export default App;

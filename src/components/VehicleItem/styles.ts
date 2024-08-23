@@ -19,7 +19,9 @@ a{
 
 }
 `
+export const SkeletonContainer = styled.div`
 
+`
 export const Image = styled.img`
   width: 215px;
   aspect-ratio: 13/10;
@@ -42,17 +44,22 @@ export const Title = styled.h2`
   font-weight: 500;
 `
 
-export const Info = styled.p`
-  color: ${({ theme }) => theme.colors.black};
-  font-size: 16px;
-  font-weight: 500;
+export const InfoContainer = styled.div`
 
   svg {
     width: 1.4rem;
   }
 `
 
-export const Favourite = styled.div`
+export const Info = styled.p`
+  color: ${({ theme }) => theme.colors.black};
+  font-size: 16px;
+  font-weight: 500;
+
+`
+
+export const Favourite = styled.button`
+border: none;
   width: 2rem;
   height: 2rem;
   display: flex;
