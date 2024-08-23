@@ -1,6 +1,8 @@
 import { styled } from "styled-components";
 
 export const VehicleContainer = styled.div`
+  position: relative;
+  
 a{
   display: flex;
   width: 100%;
@@ -9,8 +11,13 @@ a{
   align-items: center;
   text-decoration: none;
   gap: 2rem;
+
+  @media(max-width: 768px) {
+    align-items: start;
+    flex-direction: column;
+  }
+
 }
-position: relative;
 `
 
 export const Image = styled.img`
@@ -22,6 +29,11 @@ export const DataContainer = styled.div`
 display: flex;
 flex-direction: column;
 gap: 0.5rem;
+width: 30%;
+
+@media(max-width: 768px) {
+  width: 100%;
+}
 `
 
 export const Title = styled.h2`

@@ -3,12 +3,13 @@ import { VehicleType } from "types/vehicle";
 import VehicleItem from "components/VehicleItem";
 
 interface VehicleListProps {
-    currentItems: VehicleType[],
+    page: number,
     favorites: VehicleType[],
+    currentItems: VehicleType[],
     handleFavourite: (vehicle: VehicleType) => void
 }
 
-const VehicleList = ({ currentItems, handleFavourite, favorites }: VehicleListProps) => {
+const VehicleList = ({ page, currentItems, handleFavourite, favorites }: VehicleListProps) => {
     const { handleCarData } = useCar();
 
     return (
@@ -16,6 +17,7 @@ const VehicleList = ({ currentItems, handleFavourite, favorites }: VehicleListPr
             {currentItems.map((vehicle, index) => (
                 <VehicleItem
                     key={index}
+                    page={page}
                     index={index}
                     vehicle={vehicle}
                     handleCarData={handleCarData}

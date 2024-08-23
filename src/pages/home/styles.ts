@@ -38,15 +38,69 @@ export const PaginationContainer = styled.div`
  display: flex;
  justify-content: center;
  width: 100%;
- ul {
-  gap: 1rem;
-  list-style-type: none;
-  width: 100%;
-  display: flex;
+  margin: 1rem 0;
+ .pagination {
+    font-size: 14px;
+    font-weight: 600;
+    display: flex;
+    list-style-type: none;
 
- }
- li {
-  cursor: pointer;
+    a {
+      border: 1px solid #b9b9b9;
+      border-radius: 3px;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      cursor: pointer;
+    }
 
- }
+    li {
+      border-radius: 3px;
+
+      &.previous {
+        margin-left: 0;
+      }
+
+      &.next {
+        margin-right: 0;
+      }
+
+      &.active {
+        a {
+          border: none;
+          background-color: #E4672E;
+          color: #fff;
+          cursor: default;
+          user-select: none;
+          outline: none;
+        }
+
+        svg {
+          color: #000 !important;
+        }
+      }
+
+      & + li {
+        margin-right: 0;
+        margin-left: 10px;
+      }
+    }
+
+    li:hover {
+      transition: all 0.1s ease;
+      background-color: #E4672E;
+      a{
+        color: #fff;
+      }
+    }
+  }
+`
+
+
+export const SkeletonImage = styled.div`
+  width: 300px;
+  height: 100px;
 `

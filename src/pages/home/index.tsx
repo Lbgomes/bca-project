@@ -14,7 +14,8 @@ function Home() {
     const defaultFilter = { label: 'Select your filter', value: '0' };
 
     const { vehiclesData } = useCar()
-    
+
+    const [currentPage, setCurrentPage] = useState(0);
     const [favorites, setFavorites] = useState<VehicleType[]>([])
     const [itemsPerPage, setItemsPerPage] = useState(10)
     const [itemOffset, setItemOffset] = useState(0);
@@ -114,7 +115,9 @@ function Home() {
     const currentItems = filteredVehicles.slice(itemOffset, endOffset);
     const handlePageClick = (event: any) => {
         const newOffset = (event.selected * itemsPerPage) % filteredVehicles.length;
+        setCurrentPage(event.selected);
         setItemOffset(newOffset);
+        window.scrollTo(0, 0);
     };
 
     const handleFavourite = (vehicle: VehicleType) => {
@@ -163,16 +166,18 @@ function Home() {
             </S.FilterContainer>
 
             <S.Container>
-                <VehicleList currentItems={currentItems} handleFavourite={handleFavourite} favorites={favorites} />
+                <VehicleList currentItems={currentItems} handleFavourite={handleFavourite} favorites={favorites} page={currentPage} />
 
                 <S.PaginationContainer>
                     <ReactPaginate
                         breakLabel="..."
-                        nextLabel="next >"
+                        nextLabel=">"
                         onPageChange={handlePageClick}
-                        pageRangeDisplayed={5}
+                        pageRangeDisplayed={1}
                         pageCount={pageCount}
-                        previousLabel="< previous"
+                        activeClassName='active'
+                        containerClassName={'pagination'}
+                        previousLabel="<"
                         renderOnZeroPageCount={null}
                     />
                 </S.PaginationContainer>
