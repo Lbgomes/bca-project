@@ -31,7 +31,7 @@ function Home() {
     const getModelsByMaker = (selectedMaker: string) => {
         return vehiclesData.reduce((acc, vehicle: VehicleType, index) => {
             if (vehicle.make === selectedMaker && !acc.some(item => item.label === vehicle.model)) {
-                acc.push({ label: vehicle.model, value: index.toString() });
+                acc.push({ label: vehicle.model, value: (index + 1).toString() });
             }
             return acc;
         }, [] as { label: string, value: string }[]);
@@ -39,14 +39,14 @@ function Home() {
 
     const allMakers = vehiclesData.reduce((acc, vehicle: VehicleType, index) => {
         if (!acc.some(item => item.label === vehicle.make)) {
-            acc.push({ label: vehicle.make, value: index.toString() });
+            acc.push({ label: vehicle.make, value: (index + 1).toString() });
         }
         return acc;
     }, [] as { label: string, value: string }[]);
 
     const allBids = vehiclesData.reduce((acc, vehicle: VehicleType, index) => {
         if (!acc.some(item => item.label === vehicle.startingBid.toString())) {
-            acc.push({ label: vehicle.startingBid.toString(), value: index.toString() });
+            acc.push({ label: vehicle.startingBid.toString(), value: (index + 1).toString() });
         }
         return acc;
     }, [] as { label: string, value: string }[]);
