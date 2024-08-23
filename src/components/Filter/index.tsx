@@ -19,7 +19,6 @@ export default function Filter({ title, isDisabled = false, filter, options = []
             <S.Title>{title}</S.Title>
             <Select 
                 options={enhancedOptions} 
-                value={enhancedOptions.find(opt => opt.label === filter)} 
                 isDisabled={isDisabled} 
                 onChange={(e) => setFilter(e as { label: string, value: string })} 
             />

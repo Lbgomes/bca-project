@@ -44,18 +44,18 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
 
     return (
         <S.VehicleContainer>
-            <Link to={`/${index + 1}`} onClick={() => handleCarData(vehicle)}>
+            <Link to={`/${index + 1}`} onClick={() => { handleCarData(vehicle); window.scrollTo(0, 0); }}>
                 <S.Image src={placeholder} />
                 <S.DataContainer>
                     <S.Title>{vehicle.make} {vehicle.model}</S.Title>
                     <S.Info>
-                        {(days === 0 && hours === 0) ? 'The event has started' : 
-                        `The event will begin in ${days} ${days === 1 ? 'day' : 'days'} and ${hours} ${hours === 1 ? 'hour' : 'hours'}`
+                        {(days === 0 && hours === 0) ? 'The event has started' :
+                            `The event will begin in ${days} ${days === 1 ? 'day' : 'days'} and ${hours} ${hours === 1 ? 'hour' : 'hours'}`
                         }
                     </S.Info>
                     <S.Info><B.Speedometer /> {vehicle.mileage}km</S.Info>
+                    Starting Bid: {vehicle.startingBid}
                 </S.DataContainer>
-                Starting Bid: {vehicle.startingBid}
             </Link>
             <S.Favourite onClick={() => handleFavourite(vehicle)}>
                 {isFavorite ? <Bs.Heart /> : <Br.Heart />}

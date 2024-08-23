@@ -8,6 +8,7 @@ a{
   background-color: ${({ theme }) => theme.colors.white};
   align-items: center;
   text-decoration: none;
+  gap: 2rem;
 }
 position: relative;
 `
@@ -18,7 +19,9 @@ export const Image = styled.img`
 `
 
 export const DataContainer = styled.div`
-
+display: flex;
+flex-direction: column;
+gap: 0.5rem;
 `
 
 export const Title = styled.h2`
@@ -29,7 +32,7 @@ export const Title = styled.h2`
 
 export const Info = styled.p`
   color: ${({ theme }) => theme.colors.black};
-  font-size: ${({ theme }) => theme.sizes.smallest};
+  font-size: 16px;
   font-weight: 500;
 
   svg {
