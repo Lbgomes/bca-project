@@ -145,7 +145,7 @@ function Car() {
                                 </S.Detail>
                                 <S.Detail>
                                     <S.DetailContent>
-                                        VehicleType
+                                        Vehicle Type
                                     </S.DetailContent>
                                     <S.DetailContent>
                                         {carData.details.specification.vehicleType}
