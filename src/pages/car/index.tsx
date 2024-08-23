@@ -54,7 +54,7 @@ function Car() {
                                 </S.Highlight>
                                 <S.Highlight>
                                     <Br.GasPump />
-                                    <S.HighlightText>Combustível</S.HighlightText>
+                                    <S.HighlightText>Gas</S.HighlightText>
                                     <S.HighlightText>{carData.fuel}</S.HighlightText>
                                 </S.Highlight>
                                 <S.Highlight>
@@ -84,7 +84,7 @@ function Car() {
                                         <S.Text dangerouslySetInnerHTML={{ __html: item }}></S.Text></S.Item>
                                 ))}
                             </S.List>
-                            <S.Title>Highlights</S.Title>
+                            <S.Title>Details</S.Title>
 
                             <S.DetailsContainer>
                                 <S.Detail>
