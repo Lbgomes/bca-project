@@ -26,6 +26,7 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
                         ...baseStyles,
                         width: 'fit-content',
                         border: props.selectProps.value ? "2px solid #000" : "2px solid #E4E4E4",
+                        borderRadius: "10px",
                         color: "#000",
                         "div": {
                             color: "#2E2E2E",
