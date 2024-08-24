@@ -11,6 +11,7 @@ export const Main = styled.div`
 
 `
 export const FiltersContainer = styled.div`
+  margin-top: 2rem;
   display: flex;
   width: 100%;
   flex-wrap: wrap;
