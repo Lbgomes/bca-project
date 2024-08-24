@@ -8,6 +8,8 @@ type CarProviderProps = {
 };
 
 type CarContextData = {
+    isLoading: boolean;
+    handleIsLoading: (data: boolean) => void;
     vehiclesData: VehicleType[];
     carData?: VehicleType;
     handleCarData: (data: VehicleType) => void;
@@ -18,14 +20,20 @@ export const CarContext = createContext({} as CarContextData);
 const CarContextProvider = ({ children }: CarProviderProps) => {
     const [vehiclesData, setVehiclesData] = useState<VehicleType[]>(Data)
     const [carData, setCarData] = useState<VehicleType>();
-
+    const [isLoading, setIsLoading] = useState(true);
     const handleCarData = (data: VehicleType) => {
         setCarData(data);
+    };
+
+    const handleIsLoading = (data: boolean) => {
+        setIsLoading(data);
     };
     const value = {
         vehiclesData,
         carData,
-        handleCarData
+        handleCarData,
+        isLoading,
+        handleIsLoading
     };
 
 

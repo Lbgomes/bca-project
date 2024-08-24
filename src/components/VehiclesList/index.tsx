@@ -2,6 +2,7 @@ import { useCar } from "context/car";
 import { VehicleType } from "types/vehicle";
 import VehicleItem from "components/VehicleItem";
 import * as S from "./styles";
+import { useEffect } from "react";
 interface VehicleListProps {
     page: number,
     favorites: VehicleType[],

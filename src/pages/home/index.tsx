@@ -15,7 +15,7 @@ function Home() {
 
     const defaultFilter = { label: 'Select your filter', value: '0' };
 
-    const { vehiclesData } = useCar()
+    const { vehiclesData, handleIsLoading } = useCar()
 
     const [currentPage, setCurrentPage] = useState(0);
     const [favorites, setFavorites] = useState<VehicleType[]>([])
@@ -176,7 +176,7 @@ function Home() {
                 <S.SwitchContainer>
                     <SwitchSelector
                         onChange={(e: any) => {
-                            console.log(e, 'isFavorite')
+                            handleIsLoading(true);
                             setFilters(prevFilters => ({
                                 ...prevFilters,
                                 isFavorite: { label: e.label, value: e },
@@ -185,7 +185,6 @@ function Home() {
                         options={FavoriteOptions}
                         wrapperBorderRadius={8}
                         optionBorderRadius={6}
-                        
                         initialSelectedIndex={0}
                         backgroundColor={"#EEEEEE"}
                         fontColor={"#585858"}

@@ -25,10 +25,7 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
 
                         ...baseStyles,
                         width: 'fit-content',
-                        border: `${props.isFocused ? "1px" : "2px"} solid ${props.isFocused
-                            ? "#E3E5F2"
-                            : "#000"
-                            }`,
+                        border: props.selectProps.value ? "2px solid #000" : "2px solid #E4E4E4",
                         color: "#000",
                         "div": {
                             color: "#2E2E2E",

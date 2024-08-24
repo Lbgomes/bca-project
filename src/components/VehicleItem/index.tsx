@@ -9,6 +9,7 @@ import placeholder from '../../assets/car.jpg';
 import { VehicleType } from 'types/vehicle';
 import Skeleton from 'react-loading-skeleton';
 import 'react-loading-skeleton/dist/skeleton.css'
+import { useCar } from 'context/car';
 
 interface VehicleItemProps {
     index: number;
@@ -20,9 +21,8 @@ interface VehicleItemProps {
 }
 
 const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorite, page }: VehicleItemProps) => {
-    const [isLoading, setIsLoading] = useState(true);
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0 });
-
+    const {isLoading, handleIsLoading} = useCar()
     const calculateTimeLeft = useCallback(() => {
         const now = new Date();
         const eventTime = new Date(vehicle.auctionDateTime);
@@ -40,12 +40,12 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
         setTimeout(() => {
             const timeLeft = calculateTimeLeft();
             setTimeLeft(timeLeft);
-            setIsLoading(false);
-        }, 1000);
+            handleIsLoading(false);
+        }, 500);
     }, [calculateTimeLeft, page]);
 
     useEffect(() => {
-        setIsLoading(true);
+        handleIsLoading(true);
     }, [page])
 
     const { days, hours } = timeLeft;
