@@ -5,6 +5,8 @@ import Filter from 'components/Filter';
 import ReactPaginate from 'react-paginate';
 import { useCar } from 'context/car';
 import VehicleList from 'components/VehiclesList';
+import SwitchSelector from "react-switch-selector";
+import * as E from '@styled-icons/evaicons-outline/Options2Outline'
 function Home() {
     interface Options {
         label: string
@@ -17,7 +19,7 @@ function Home() {
 
     const [currentPage, setCurrentPage] = useState(0);
     const [favorites, setFavorites] = useState<VehicleType[]>([])
-    const [itemsPerPage, setItemsPerPage] = useState(10)
+    const [itemsPerPage, setItemsPerPage] = useState(15)
     const [itemOffset, setItemOffset] = useState(0);
     const [filters, setFilters] = useState({
         maker: defaultFilter,
@@ -25,7 +27,7 @@ function Home() {
         bidMin: defaultFilter,
         bidMax: defaultFilter,
         sortBy: defaultFilter,
-        isFavorite: defaultFilter,
+        isFavorite: { label: 'All', value: 'all' },
     });
 
     const getModelsByMaker = (selectedMaker: string) => {
@@ -52,19 +54,26 @@ function Home() {
     }, [] as { label: string, value: string }[]);
 
 
-    const favoriteOptions = [
-        { label: 'Favorite', value: '1' },
-        { label: 'Not Favorite', value: '2' }
-    ]
-
+    const FavoriteOptions = [
+        {
+            label: 'All',
+            value: 'all',
+            selectedBackgroundColor: "#fff",
+        },
+        {
+            label: "Favorites only",
+            value: "favorites",
+            selectedBackgroundColor: "#fff"
+        }
+    ];
     const sortByOptions = [
         { label: 'Make', value: '1' },
-        { label: 'Lowest price', value: '2' },
-        { label: 'Highest price', value: '3' },
-        { label: 'Milage asc', value: '4' },
-        { label: 'Milage desc', value: '5' },
-        { label: 'Auction date asc', value: '6' },
-        { label: 'Auction date desc', value: '7' },
+        { label: 'Lowest → Highest Price', value: '2' },
+        { label: 'Highest → Lowest Price', value: '3' },
+        { label: 'Lowest → Highest Milage', value: '4' },
+        { label: 'Highest → Lowest Milage', value: '5' },
+        { label: 'Lowest → Highest Auction date', value: '6' },
+        { label: 'Highest → Lowest Auction date ', value: '7' },
     ]
     const allModels = getModelsByMaker(filters.maker.label);
 
@@ -74,7 +83,7 @@ function Home() {
         const filtered = vehiclesData.filter(vehicle => {
             const isMakerMatch = filters.maker.value !== '0' ? vehicle.make === filters.maker.label : true;
             const isModelMatch = filters.model.value !== '0' ? vehicle.model === filters.model.label : true;
-            const isFavoriteMatch = filters.isFavorite.value !== '0' ? (filters.isFavorite.label === 'Favorite' ? favorites.includes(vehicle) : !favorites.includes(vehicle)) : true;
+            const isFavoriteMatch = filters.isFavorite.value === 'all' ? true : vehicle.favourite === (filters.isFavorite.value === 'favorites');
 
             const bidMinValue = parseInt(filters.bidMin.label);
             const bidMaxValue = parseInt(filters.bidMax.label);
@@ -154,34 +163,53 @@ function Home() {
     return (
         <S.Main>
 
-            <S.Title>Filters</S.Title>
-            <S.FilterContainer>
-                <Filter title="Maker" filter={filters.maker.label} setFilter={handleFilterChange('maker')} options={allMakers} />
-                <Filter title="Model" filter={filters.model.label} setFilter={handleFilterChange('model')} options={allModels} value={filters.maker.value} isDisabled={filters.maker.value === '0'} />
-                <Filter title="Favorite" filter={filters.isFavorite.label} setFilter={handleFilterChange('isFavorite')} options={favoriteOptions} />
-                <Filter title="Starting bid minimum" filter={filters.bidMin.label} setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
-                <Filter title="Starting bid maximum" filter={filters.bidMax.label} setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
-                <Filter title="Order by" filter={filters.sortBy.label} setFilter={handleFilterChange('sortBy')} options={sortByOptions} />
-                <S.ItemPerPage type="number" value={itemsPerPage} onChange={(e) => setItemsPerPage(parseInt(e.target.value))} />
-            </S.FilterContainer>
+            <S.FiltersContainer>
+                <S.FilterGroup>
+                    <E.Options2Outline  size={24} />
+                    <Filter title="Maker" setFilter={handleFilterChange('maker')} options={allMakers} />
+                    <Filter title="Model" setFilter={handleFilterChange('model')} options={allModels} isDisabled={filters.maker.value === '0'} />
+                    <Filter title="Starting Bid Min" setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
+                    <Filter title="Starting Bid Max" setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
+                    <Filter title="Sort by" setFilter={handleFilterChange('sortBy')} options={sortByOptions} />
+                </S.FilterGroup>
 
+                <S.SwitchContainer>
+                    <SwitchSelector
+                        onChange={(e: any) => {
+                            console.log(e, 'isFavorite')
+                            setFilters(prevFilters => ({
+                                ...prevFilters,
+                                isFavorite: { label: e.label, value: e },
+                            }))
+                        }}
+                        options={FavoriteOptions}
+                        wrapperBorderRadius={8}
+                        optionBorderRadius={6}
+                        
+                        initialSelectedIndex={0}
+                        backgroundColor={"#EEEEEE"}
+                        fontColor={"#585858"}
+                    />
+                </S.SwitchContainer>
+            </S.FiltersContainer>
             <S.Container>
+                <S.Title>Results</S.Title>
                 <VehicleList currentItems={currentItems} handleFavourite={handleFavourite} favorites={favorites} page={currentPage} />
 
-                <S.PaginationContainer>
-                    <ReactPaginate
-                        breakLabel="..."
-                        nextLabel=">"
-                        onPageChange={handlePageClick}
-                        pageRangeDisplayed={1}
-                        pageCount={pageCount}
-                        activeClassName='active'
-                        containerClassName={'pagination'}
-                        previousLabel="<"
-                        renderOnZeroPageCount={null}
-                    />
-                </S.PaginationContainer>
             </S.Container>
+            <S.PaginationContainer>
+                <ReactPaginate
+                    breakLabel="..."
+                    nextClassName='arrow'
+                    previousClassName='arrow'
+                    onPageChange={handlePageClick}
+                    pageRangeDisplayed={1}
+                    pageCount={pageCount}
+                    activeClassName='active'
+                    containerClassName={'pagination'}
+                    renderOnZeroPageCount={null}
+                />
+            </S.PaginationContainer>
 
         </S.Main>
     );

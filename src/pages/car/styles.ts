@@ -2,7 +2,6 @@ import styled from "styled-components";
 
 export const Main = styled.div`
     width: 100%;
-    background-color: ${({ theme }) => theme.colors.background};
     display: flex;
     flex-direction: column;
     align-items: center;

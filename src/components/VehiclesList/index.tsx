@@ -1,7 +1,7 @@
 import { useCar } from "context/car";
 import { VehicleType } from "types/vehicle";
 import VehicleItem from "components/VehicleItem";
-
+import * as S from "./styles";
 interface VehicleListProps {
     page: number,
     favorites: VehicleType[],
@@ -13,7 +13,7 @@ const VehicleList = ({ page, currentItems, handleFavourite, favorites }: Vehicle
     const { handleCarData } = useCar();
 
     return (
-        <>
+        <S.Container>
             {currentItems.map((vehicle, index) => (
                 <VehicleItem
                     key={index}
@@ -25,7 +25,7 @@ const VehicleList = ({ page, currentItems, handleFavourite, favorites }: Vehicle
                     isFavorite={favorites.includes(vehicle)}
                 />
             ))}
-        </>
+        </S.Container>
     );
 };
 

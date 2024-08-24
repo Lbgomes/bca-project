@@ -6,9 +6,6 @@ export const Container = styled.div`
     flex-direction: column;
     gap: 1rem;
 
-    > div {
-        width: 180px;
-    }
 `
 
 export const Title = styled.h2`

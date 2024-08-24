@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { differenceInDays, differenceInHours, addDays } from 'date-fns';
 import { Link } from 'react-router-dom';
 import * as S from './styles';
-import * as B from '@styled-icons/bootstrap';
 import * as Bs from '@styled-icons/boxicons-solid';
 import * as Br from '@styled-icons/boxicons-regular';
+import * as fl from '@styled-icons/fluentui-system-regular';
 import placeholder from '../../assets/car.jpg';
 import { VehicleType } from 'types/vehicle';
 import Skeleton from 'react-loading-skeleton';
@@ -21,8 +21,9 @@ interface VehicleItemProps {
 
 const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorite, page }: VehicleItemProps) => {
     const [isLoading, setIsLoading] = useState(true);
+    const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0 });
 
-    const calculateTimeLeft = () => {
+    const calculateTimeLeft = useCallback(() => {
         const now = new Date();
         const eventTime = new Date(vehicle.auctionDateTime);
 
@@ -33,81 +34,117 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
             days: days > 0 ? days : 0,
             hours: hours > 0 ? hours : 0,
         };
-    };
-
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-
-    useEffect(() => {
-        const timer = setInterval(() => {
-            const updatedTimeLeft = calculateTimeLeft();
-            setTimeLeft(updatedTimeLeft);
-            setIsLoading(false);
-        }, 1000);
-
-        return () => clearInterval(timer);
     }, [vehicle.auctionDateTime]);
 
     useEffect(() => {
+        setTimeout(() => {
+            const timeLeft = calculateTimeLeft();
+            setTimeLeft(timeLeft);
+            setIsLoading(false);
+        }, 1000);
+    }, [calculateTimeLeft, page]);
+
+    useEffect(() => {
         setIsLoading(true);
-    }, [page]);
+    }, [page])
 
     const { days, hours } = timeLeft;
+
+
+    interface DataWithSkeletonProps {
+        children: React.ReactNode;
+        width?: number;
+        height?: number;
+    }
+
+    const DataWithSkeleton = ({ children, width = 200, height }: DataWithSkeletonProps) => {
+        return (
+            <S.InfoContainer>
+                {isLoading ?
+                    <S.SkeletonContainer aria-label='loading' >
+                        <Skeleton aria-label="loading" width={width ? width : 'auto'} height={height ? height : 'auto'} borderRadius={'10px'} />
+                    </S.SkeletonContainer> : (
+                        <>
+                            {children}
+                        </>
+                    )
+                }
+            </S.InfoContainer>
+        );
+    };
 
     return (
         <S.VehicleContainer>
             <Link to={`/${index + 1}`} onClick={() => { handleCarData(vehicle); window.scrollTo(0, 0); }}>
-                {
-                    isLoading ?
-                        <S.SkeletonContainer aria-label='loading'> <Skeleton width={215} height={162.4} /></S.SkeletonContainer> :
-                        <S.Image src={placeholder} />
-                }
+
+                <DataWithSkeleton width={215} height={162.4}>
+                    <S.Image src={placeholder} />
+                </DataWithSkeleton>
 
                 <S.DataContainer>
-                    <S.Title>
-                        {isLoading ?
-                            <S.SkeletonContainer aria-label='loading'>
-                                <Skeleton aria-label="loading" />
-                            </S.SkeletonContainer> :
-                            <S.Info>
-                                {vehicle.make} {vehicle.model}
-                            </S.Info>
-                        }
-                    </S.Title>
-                    <S.InfoContainer>
-                        {isLoading ?
-                            <S.SkeletonContainer aria-label='loading'>
-                                <Skeleton aria-label="loading" />
-                            </S.SkeletonContainer> :
-                            <S.Info>
+
+                    <DataWithSkeleton>
+                        <S.Title>
+                            {vehicle.make} {vehicle.model}
+                        </S.Title>
+                    </DataWithSkeleton>
+
+
+                    <DataWithSkeleton>
+                        <S.Info>
+                            <fl.TopSpeed size={16} /> {vehicle.mileage}km
+                        </S.Info>
+                    </DataWithSkeleton>
+                    <S.EventInfoContainer>
+
+                        <DataWithSkeleton>
+                            <S.Info opacity={0.8}>
                                 {
                                     (days === 0 && hours === 0) ?
-                                        'The event has started' :
-                                        `The event will begin in ${days} ${days === 1 ? 'day' : 'days'} and ${hours} ${hours === 1 ?
-                                            'hour' : 'hours'}`
+                                        'This event has started' :
+                                        `This event will begin in`
                                 }
                             </S.Info>
-                        }
-                    </S.InfoContainer>
-                    <S.InfoContainer>
-                        {
-                            isLoading ?
-                                <S.SkeletonContainer aria-label='loading'>
-                                    <Skeleton aria-label="loading" />
-                                </S.SkeletonContainer> :
-                                (<S.Info>
-                                    <B.Speedometer /> {vehicle.mileage}km
-                                </S.Info>
+                            {
+                                (days !== 0 && hours !== 0) && (
+
+                                    <S.AuctionContainer>
+                                        <S.EventTimeContainer>
+                                            <S.EventTime>
+                                                <S.Info>
+                                                    {days}
+                                                </S.Info>
+                                            </S.EventTime>
+                                            <S.Info fontSize='12px'>
+                                                {days === 1 ? 'day' : 'days'}
+                                            </S.Info>
+                                        </S.EventTimeContainer>
+                                        <S.EventTimeContainer>
+                                            <S.EventTime>
+                                                <S.Info>
+                                                    {hours}
+                                                </S.Info>
+                                            </S.EventTime>
+                                            <S.Info fontSize='12px'>
+                                                {hours === 1 ? 'hour' : 'hours'}
+                                            </S.Info>
+                                        </S.EventTimeContainer>
+                                    </S.AuctionContainer>
                                 )
-                        }
-                    </S.InfoContainer>
-                    {isLoading ?
-                        <S.SkeletonContainer aria-label='loading'>
-                            <Skeleton aria-label="loading" />
-                        </S.SkeletonContainer> :
-                        <S.Info> Starting Bid: {vehicle.startingBid}</S.Info>
-                    }
+                            }
+                        </DataWithSkeleton>
+                        <DataWithSkeleton>
+                            <S.BidContainer>
+                                <S.Info opacity={0.5} fontWeight={600}> Starting Bid: </S.Info>
+                                <S.Price> {vehicle.startingBid} €</S.Price>
+                            </S.BidContainer>
+
+                        </DataWithSkeleton>
+                    </S.EventInfoContainer>
+
                 </S.DataContainer>
             </Link>
+
             <S.Favourite onClick={() => handleFavourite(vehicle)}>
                 {isFavorite ? <Bs.Heart aria-label="favourite" /> : <Br.Heart aria-label="non-favourite" />}
             </S.Favourite>

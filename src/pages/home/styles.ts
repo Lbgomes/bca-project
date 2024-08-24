@@ -1,22 +1,59 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 
 export const Main = styled.div`
-  width: 100%;
-  background-color: ${({ theme }) => theme.colors.background};
+  height: 100%;
+  max-width: 1300px;
   display: flex;
+  margin: 0 auto;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
 `
-export const FilterContainer = styled.div`
+export const FiltersContainer = styled.div`
   display: flex;
+  width: 100%;
   flex-wrap: wrap;
   gap: 1rem;
+  justify-content: space-between;
 `
+export const FilterGroup = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+`
+export const SwitchContainer = styled.div`
+  ${({ theme }) => css`
+  width: 250px;
+  .react-switch-selector-option-selected{
+
+    /* height: auto; */
+    /* padding: 0.5rem; */
+box-shadow: 0px 1px 3px 0px #0000001A;
+
+  }
+  .react-switch-selector-option {
+    white-space: nowrap;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+  }
+
+  .go3615043926:before {
+  }
+label {
+  font-weight: 700;
+  font-size: ${theme.font.sizes.xsmall};
+  color: ${theme.colors.gray};
+}
+
+`}
+`
+
 export const Container = styled.div`
-max-width: 1200px;
 width: 100%;
+min-height: 700px;
 display: flex;
 flex-direction: column;
 gap: 1rem;
@@ -35,46 +72,45 @@ export const Title = styled.h2`
 `
 
 export const PaginationContainer = styled.div`
+${({ theme }) => css`
  display: flex;
  justify-content: center;
  width: 100%;
   margin: 1rem 0;
- .pagination {
+  .pagination {
+    display: flex;
+    gap: 0.3rem;
+   background-color: ${theme.colors.background};
+   padding: 0.2rem;
+   border-radius: ${theme.border.radius.xsmall};
     font-size: 14px;
     font-weight: 600;
-    display: flex;
     list-style-type: none;
-
+    .arrow {
+      display: none;
+    }
     a {
-      border: 1px solid #b9b9b9;
       border-radius: 3px;
       width: 30px;
       height: 30px;
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #000;
+      color: ${theme.colors.gray};
       cursor: pointer;
     }
 
     li {
       border-radius: 3px;
 
-      &.previous {
-        margin-left: 0;
-      }
-
-      &.next {
-        margin-right: 0;
-      }
-
       &.active {
         a {
           border: none;
-          background-color: #E4672E;
-          color: #fff;
+          background-color: ${theme.colors.white};
+          border-radius: ${theme.border.radius.xsmall};
           cursor: default;
           user-select: none;
+          box-shadow: 0px 1px 2px 0px #0000000F;
           outline: none;
         }
 
@@ -82,21 +118,17 @@ export const PaginationContainer = styled.div`
           color: #000 !important;
         }
       }
-
-      & + li {
-        margin-right: 0;
-        margin-left: 10px;
-      }
     }
 
     li:hover {
       transition: all 0.1s ease;
-      background-color: #E4672E;
-      a{
-        color: #fff;
-      }
+      background-color: ${theme.colors.white};
+      border-radius: ${theme.border.radius.xsmall};
+      box-shadow: 0px 1px 2px 0px #0000000F;
+
     }
   }
+`}
 `
 
 
