@@ -14,13 +14,12 @@ export const VehicleContainer = styled.div`
     align-items: center;
     text-decoration: none;
     gap: 2rem;
-
-@media(max - width: 768px) {
-  align-items: start;
-  flex-direction: column;
-}
-
-}
+    
+    @media(max-width: 768px) {
+      align-items: start;
+      flex-direction: column;
+    }
+  }
 `}
 `
 export const SkeletonContainer = styled.div`
@@ -31,6 +30,9 @@ export const Image = styled.img`
   width: 215px;
   aspect-ratio: 13/10;
   border-radius: ${theme.border.radius.smallHalf};
+  @media(max-width: 768px) {
+    width: 100%;
+  }
   `}
 `
 
@@ -44,6 +46,12 @@ align-self: end;
 @media(max-width: 768px) {
   width: 100%;
 }
+`
+export const TitleFavouriteContainer = styled.div`
+
+  display: flex;
+  justify-content: space-between;
+
 `
 
 export const Title = styled.h2`
@@ -143,6 +151,8 @@ export const Favourite = styled.button`
   padding: 0.3rem;
   cursor: pointer;
   background-color:  ${theme.colors.white};
-
+  @media (max-width: 768px) {
+    position: unset;
+}
 `}
 `

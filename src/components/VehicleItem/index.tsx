@@ -84,9 +84,16 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
                 <S.DataContainer>
 
                     <DataWithSkeleton>
-                        <S.Title>
-                            {vehicle.make} {vehicle.model}
-                        </S.Title>
+                        <S.TitleFavouriteContainer>
+
+                            <S.Title>
+                                {vehicle.make} {vehicle.model}
+                            </S.Title>
+
+                            <S.Favourite onClick={() => handleFavourite(vehicle)}>
+                                {isFavorite ? <Bs.Heart aria-label="favourite" /> : <Br.Heart aria-label="non-favourite" />}
+                            </S.Favourite>
+                        </S.TitleFavouriteContainer>
                     </DataWithSkeleton>
 
 
@@ -149,9 +156,7 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
                 </S.DataContainer>
             </Link>
 
-            <S.Favourite onClick={() => handleFavourite(vehicle)}>
-                {isFavorite ? <Bs.Heart aria-label="favourite" /> : <Br.Heart aria-label="non-favourite" />}
-            </S.Favourite>
+
         </S.VehicleContainer>
     );
 };

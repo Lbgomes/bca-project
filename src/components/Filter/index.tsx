@@ -41,6 +41,10 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
                         ":focus": {
                             borderColor: "#E3E5F2",
                         },
+                        "@media(max-width: 768px)": {
+                            width: "max-content",
+
+                        }
                     }),
                     menu: (baseStyles, state) => ({
                         ...baseStyles,

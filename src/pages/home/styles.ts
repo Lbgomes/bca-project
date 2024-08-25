@@ -9,7 +9,7 @@ export const Main = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%; 
-  padding: 0 1rem;
+  padding: 0 1.5rem;
 `
 export const FiltersContainer = styled.div`
   margin-top: 2rem;
@@ -18,6 +18,11 @@ export const FiltersContainer = styled.div`
   flex-wrap: wrap;
   gap: 1rem;
   justify-content: space-between;
+  @media (max-width: 768px) {
+    flex-wrap: nowrap;
+    overflow-x: scroll;
+    padding: 1rem;
+  }
 `
 export const FilterGroup = styled.div`
   display: flex;
@@ -41,8 +46,8 @@ box-shadow: 0px 1px 3px 0px #0000001A;
     align-items: center;
     justify-content: center;
   }
-
-  .go3615043926:before {
+  .go3599502388 {
+    width: 250px !important;
   }
 label {
   font-weight: 700;
@@ -77,6 +82,13 @@ export const PaginationContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   position: relative;
+  margin: 3rem 0;
+
+@media(max-width: 768px) {
+  flex-direction: column-reverse;
+  gap: 1rem;
+}
+
     .pagination {
     display: flex;
     gap: 0.3rem;
@@ -91,7 +103,12 @@ export const PaginationContainer = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+
+    @media (max-width: 768px) {
+      transform: translate(0%, 0%);
+      position: static;
     }
+  }
     .arrow {
       display: none;
     }
@@ -140,7 +157,6 @@ export const PaginationWrapper = styled.div`
   display: flex;
   justify-content: center;
   flex-grow: 1;
-  margin: 4rem 0;
 `
 
 export const ItemPerPageContainer = styled.div`
@@ -154,13 +170,18 @@ export const ItemPerPageContainer = styled.div`
     display: flex;
     align-items: center;
     gap: 0.5rem;
+
+    @media (max-width: 768px) {
+align-self: self-end;
+    }
   `}
 `
-  
+
 export const ItemPerPage = styled.input`
   border: none;
   width: 3rem;
   height: 1.5rem;
+
 `
 export const SkeletonImage = styled.div`
   width: 300px;
