@@ -25,6 +25,20 @@ export const VehicleContainer = styled.div`
 export const SkeletonContainer = styled.div`
 
 `
+export const ImageContainer = styled.div`
+  width: 215px;
+  aspect-ratio: 13/10;
+
+  @media(max-width: 768px) {
+    width: 100%;
+  aspect-ratio: 13/10;
+    .react-loading-skeleton{
+      width: 100% !important;
+      height: 100% !important;
+      aspect-ratio: 13/10;
+    }
+  }
+`
 export const Image = styled.img`
   ${({ theme }) => css`
   width: 215px;

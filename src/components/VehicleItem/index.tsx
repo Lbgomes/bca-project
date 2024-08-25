@@ -54,10 +54,10 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
     interface DataWithSkeletonProps {
         children: React.ReactNode;
         width?: number;
-        height?: number;
+        height?: string | number | undefined;
     }
 
-    const DataWithSkeleton = ({ children, width = 200, height }: DataWithSkeletonProps) => {
+    const DataWithSkeleton = ({ children, width = 150, height }: DataWithSkeletonProps) => {
         return (
             <S.InfoContainer>
                 {isLoading ?
@@ -76,17 +76,18 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
     return (
         <S.VehicleContainer>
             <Link to={`/${index + 1}`} onClick={() => { handleCarData(vehicle); window.scrollTo(0, 0); }}>
-
+                <S.ImageContainer>
                 <DataWithSkeleton width={215} height={162.4}>
                     <S.Image src={placeholder} />
                 </DataWithSkeleton>
+                </S.ImageContainer>
 
                 <S.DataContainer>
 
-                    <DataWithSkeleton>
+                    <DataWithSkeleton height={32}>
                         <S.TitleFavouriteContainer>
 
-                            <S.Title>
+                            <S.Title >
                                 {vehicle.make} {vehicle.model}
                             </S.Title>
 
@@ -97,7 +98,7 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
                     </DataWithSkeleton>
 
 
-                    <DataWithSkeleton>
+                    <DataWithSkeleton width={90} height={19}>
                         <S.IconInfoContainer>
                             <fl.TopSpeed size={16} color='#000' />
                             <S.Info opacity={0.6}>
@@ -107,7 +108,7 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
                     </DataWithSkeleton>
                     <S.EventInfoContainer>
 
-                        <DataWithSkeleton>
+                        <DataWithSkeleton width={150} height={70}>
                             <S.Info opacity={0.8}>
                                 {
                                     (days === 0 && hours === 0) ?
@@ -143,7 +144,7 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
                                 )
                             }
                         </DataWithSkeleton>
-                        <DataWithSkeleton>
+                        <DataWithSkeleton width={90} height={52}>
                             <S.BidContainer>
                                 <S.Info opacity={0.5} fontWeight={600}> Starting Bid: </S.Info>
                                 <S.Price>€ {vehicle.startingBid.toLocaleString('de-DE')}</S.Price>
