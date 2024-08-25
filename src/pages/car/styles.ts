@@ -2,13 +2,14 @@ import styled from "styled-components";
 
 export const Main = styled.div`
     width: 100%;
+
     display: flex;
     flex-direction: column;
     align-items: center;
 `
 
 export const Container = styled.div`
-    max-width: 1200px;
+    max-width: 1300px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -19,6 +20,9 @@ export const ContentContainer = styled.div`
 
 display: flex;
 gap: 1rem;
+@media(max-width: 1000px) {
+    flex-direction: column;
+}
 `
 
 export const ImageContainer = styled.div`
@@ -30,6 +34,7 @@ export const ImageContainer = styled.div`
 
 export const Image = styled.img`
     max-width: 750px;
+    width: 100%;
     object-fit: cover;
     aspect-ratio: 10/7;
 `
@@ -76,13 +81,19 @@ export const HighlightDataContainer = styled.div`
     display: flex;
     width: 100%;
     justify-content: space-between;
+    @media(max-width: 800px){
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        row-gap: 1rem;
+        place-items: center;
+    }
 `
 
 export const Highlight = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-
+    width: fit-content;
     svg {
         width: 1.5rem;
     }

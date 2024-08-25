@@ -12,37 +12,49 @@ export const Main = styled.div`
   padding: 0 1.5rem;
 `
 export const FiltersContainer = styled.div`
-  margin-top: 2rem;
   display: flex;
+  margin-top: 2rem;
+  align-items: center;
   width: 100%;
-  flex-wrap: wrap;
   gap: 1rem;
   justify-content: space-between;
+  min-height: auto;
+  svg {
+    cursor: pointer;
+  }
+  @media(max-width: 1100px) {
+    align-items: flex-start;
+  }
   @media (max-width: 768px) {
-    flex-wrap: nowrap;
-    overflow-x: scroll;
+    flex-direction: column;
     padding: 1rem;
   }
 `
 export const FilterGroup = styled.div`
   display: flex;
   align-items: center;
+  width: 100%;
   gap: 1rem;
+  @media (max-width: 1100px) {
+    flex-wrap: wrap;
+  }
 
 `
 export const SwitchContainer = styled.div`
   ${({ theme }) => css`
   width: 250px;
-  .react-switch-selector-option-selected{
+  margin-left: auto;
+  height: 40px;
 
-    /* height: auto; */
-    /* padding: 0.5rem; */
+  @media(max-width: 1100px) {
+    margin-left: 0;
+  }
+  .react-switch-selector-option-selected{
 box-shadow: 0px 1px 3px 0px #0000001A;
 
   }
   .react-switch-selector-option {
     white-space: nowrap;
-    /* display: flex; */
     align-items: center;
     justify-content: center;
   }

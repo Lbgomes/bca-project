@@ -7,14 +7,16 @@ import * as fl from '@styled-icons/fluentui-system-regular'
 import * as M from '@styled-icons/material-outlined/PersonSearch'
 import { useEffect } from "react"
 import { useLocation } from "react-router-dom"
+import VehicleItem from "components/VehicleItem"
+import { VehicleData } from "components/VehicleData"
 function Car() {
 
     const { vehiclesData, handleCarData, carData } = useCar()
     const { pathname } = useLocation()
 
+    const id = pathname.split('/')[1]
     useEffect(() => {
         if (!carData) {
-            const id = pathname.split('/')[1]
             handleCarData(vehiclesData[parseInt(id) - 1])
         }
     })
@@ -29,9 +31,7 @@ function Car() {
                                 <S.Image src={placeholder} />
                             </S.ImageContainer>
                             <S.InfoContainer>
-                                <S.InfoTitle> {carData.make} {carData.model} {carData.mileage} km</S.InfoTitle>
-                                <S.InfoText>{carData.startingBid} €</S.InfoText>
-                                <S.InfoText>{carData.auctionDateTime}</S.InfoText>
+                                <VehicleData vehicle={carData} handleFavourite={() => { }} isFavorite={false} page="car" />
                             </S.InfoContainer>
                         </S.ContentContainer>
                         <S.DataContainer>

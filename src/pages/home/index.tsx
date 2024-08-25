@@ -16,7 +16,7 @@ function Home() {
     const defaultFilter = { label: 'Select your filter', value: '0' };
 
     const { vehiclesData, handleIsLoading } = useCar()
-
+    const [isFiltersOpen, setIsFiltersOpen] = useState(true)
     const [currentPage, setCurrentPage] = useState(0);
     const [favorites, setFavorites] = useState<VehicleType[]>([])
     const [itemsPerPage, setItemsPerPage] = useState(15)
@@ -170,19 +170,22 @@ function Home() {
         }));
     }, [filters.maker]);
 
+    useEffect(() => {
+        handleIsLoading(true);
+    }, [currentPage])
     return (
         <S.Main>
 
             <S.FiltersContainer>
+                    <E.Options2Outline size={24} onClick={() => setIsFiltersOpen(!isFiltersOpen)} />
+                    {
+                        isFiltersOpen && (
                 <S.FilterGroup>
-                    <E.Options2Outline size={24} />
                     <Filter title="Maker" setFilter={handleFilterChange('maker')} options={allMakers} />
                     <Filter title="Model" setFilter={handleFilterChange('model')} options={allModels} isDisabled={filters.maker.value === '0'} />
                     <Filter title="Starting Bid Min" setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMin} />
                     <Filter title="Starting Bid Max" setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMax} />
                     <Filter title="Sort by" setFilter={handleFilterChange('sortBy')} options={sortByOptions} />
-                </S.FilterGroup>
-
                 <S.SwitchContainer>
                     <SwitchSelector
                         onChange={(e: any) => {
@@ -200,6 +203,11 @@ function Home() {
                         fontColor={"#585858"}
                     />
                 </S.SwitchContainer>
+                </S.FilterGroup>
+
+                        )
+                    }
+
             </S.FiltersContainer>
             <S.Container>
                 <S.Title>Results</S.Title>

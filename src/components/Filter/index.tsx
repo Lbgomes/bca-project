@@ -10,7 +10,7 @@ interface FilterProps {
 }
 
 export default function Filter({ title, isDisabled = false, options = [], setFilter, value }: FilterProps) {
-    const defaultOption = { label: "Select your filter", value: "0" };
+    const defaultOption = { label: title, value: "0" };
     const enhancedOptions = [defaultOption, ...options];
 
     return (
@@ -18,7 +18,7 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
             <Select
                 placeholder={title}
                 options={enhancedOptions}
-                value={value}
+                value={value?.label !== "Select your filter" ? value : defaultOption}
                 isDisabled={isDisabled}
                 onChange={(e) => setFilter(e as { label: string, value: string })}
                 aria-label='Filter'
@@ -51,7 +51,8 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
                         width: "250px",
                         cursor: "pointer",
                         borderColor: "#E3E5F2",
-                        zIndex: 10
+                        zIndex: 10,
+                        
                     }),
                     option: (baseStyles, state) => ({
                         ...baseStyles,
@@ -60,6 +61,7 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
                         cursor: "pointer",
                         color: "#000",
                         backgroundColor: state.isSelected ? "#DADADA" : "transparent",
+
                         "&:hover": {
                             backgroundColor: "#DADADA",
                         },
