@@ -22,7 +22,7 @@ interface VehicleItemProps {
 
 const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorite, page }: VehicleItemProps) => {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0 });
-    const {isLoading, handleIsLoading} = useCar()
+    const { isLoading, handleIsLoading } = useCar()
     const calculateTimeLeft = useCallback(() => {
         const now = new Date();
         const eventTime = new Date(vehicle.auctionDateTime);
@@ -91,9 +91,12 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
 
 
                     <DataWithSkeleton>
-                        <S.Info>
-                            <fl.TopSpeed size={16} /> {vehicle.mileage}km
-                        </S.Info>
+                        <S.IconInfoContainer>
+                            <fl.TopSpeed size={16} color='#000' />
+                            <S.Info opacity={0.6}>
+                                {vehicle.mileage.toLocaleString('de-DE')}km
+                            </S.Info>
+                        </S.IconInfoContainer>
                     </DataWithSkeleton>
                     <S.EventInfoContainer>
 
@@ -136,7 +139,8 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
                         <DataWithSkeleton>
                             <S.BidContainer>
                                 <S.Info opacity={0.5} fontWeight={600}> Starting Bid: </S.Info>
-                                <S.Price> {vehicle.startingBid} €</S.Price>
+                                <S.Price>€ {vehicle.startingBid.toLocaleString('de-DE')}</S.Price>
+
                             </S.BidContainer>
 
                         </DataWithSkeleton>

@@ -8,7 +8,8 @@ export const Main = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
+  width: 100%; 
+  padding: 0 1rem;
 `
 export const FiltersContainer = styled.div`
   margin-top: 2rem;
@@ -60,12 +61,9 @@ flex-direction: column;
 gap: 1rem;
 margin-top: 2rem;
 `
-export const ItemPerPage = styled.input`
 
-  width: 3rem;
-  height: 2rem;
 
-`
+
 export const Title = styled.h2`
   color: ${({ theme }) => theme.colors.black};
   font-size: ${({ theme }) => theme.sizes.medium};
@@ -73,20 +71,27 @@ export const Title = styled.h2`
 `
 
 export const PaginationContainer = styled.div`
-${({ theme }) => css`
- display: flex;
- justify-content: center;
- width: 100%;
-  margin: 1rem 0;
-  .pagination {
+  ${({ theme }) => css`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+    .pagination {
     display: flex;
     gap: 0.3rem;
+    margin: 0 auto;
    background-color: ${theme.colors.background};
    padding: 0.2rem;
    border-radius: ${theme.border.radius.xsmall};
     font-size: 14px;
     font-weight: 600;
     list-style-type: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    }
     .arrow {
       display: none;
     }
@@ -128,11 +133,35 @@ ${({ theme }) => css`
       box-shadow: 0px 1px 2px 0px #0000000F;
 
     }
-  }
-`}
+  `}
 `
 
+export const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  margin: 4rem 0;
+`
 
+export const ItemPerPageContainer = styled.div`
+  ${({ theme }) => css`
+    color: ${theme.colors.black};
+    font-size: ${theme.font.sizes.xsmall};
+    font-weight: 600;
+    border: ${theme.border.primary};
+    border-radius: ${theme.border.radius.small};
+    padding: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  `}
+`
+  
+export const ItemPerPage = styled.input`
+  border: none;
+  width: 3rem;
+  height: 1.5rem;
+`
 export const SkeletonImage = styled.div`
   width: 300px;
   height: 100px;

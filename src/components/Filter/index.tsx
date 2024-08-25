@@ -6,9 +6,10 @@ interface FilterProps {
     setFilter: (e: { label: string, value: string }) => void;
     options?: { label: string, value: string }[];
     isDisabled?: boolean;
+    value?: { label: string, value: string };
 }
 
-export default function Filter({ title, isDisabled = false, options = [], setFilter }: FilterProps) {
+export default function Filter({ title, isDisabled = false, options = [], setFilter, value }: FilterProps) {
     const defaultOption = { label: "Select your filter", value: "0" };
     const enhancedOptions = [defaultOption, ...options];
 
@@ -17,19 +18,21 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
             <Select
                 placeholder={title}
                 options={enhancedOptions}
+                value={value}
                 isDisabled={isDisabled}
                 onChange={(e) => setFilter(e as { label: string, value: string })}
                 aria-label='Filter'
                 styles={{
-                    control: (baseStyles, props) => ({
+                    control: (baseStyles, props) => (console.log(),{
 
                         ...baseStyles,
                         width: 'fit-content',
                         border: props.selectProps.value ? "2px solid #000" : "2px solid #E4E4E4",
                         borderRadius: "10px",
-                        color: "#000",
+
+                        color:"#000",
                         "div": {
-                            color: "#2E2E2E",
+                            color: props.isDisabled ? "#b9b9b9" :  "#2E2E2E",
                             fontWeight: 600,
                         },
                         "span": {
@@ -45,6 +48,17 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
                         cursor: "pointer",
                         borderColor: "#E3E5F2",
                         zIndex: 10
+                    }),
+                    option: (baseStyles, state) => ({
+                        ...baseStyles,
+                        transition: "all 0.15s ease",
+                        width: "250px",
+                        cursor: "pointer",
+                        color: "#000",
+                        backgroundColor: state.isSelected ? "#DADADA" : "transparent",
+                        "&:hover": {
+                            backgroundColor: "#DADADA",
+                        },
                     }),
                 }}
             />

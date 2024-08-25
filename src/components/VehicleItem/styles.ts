@@ -2,14 +2,13 @@ import { css, styled } from "styled-components";
 
 export const VehicleContainer = styled.div`
   ${({ theme }) => css`
-  position: relative;
-  border: ${theme.border.primary};
-  border-radius: ${theme.border.radius.medium};
-  width: 100%;
-  height: fit-content;
+    position: relative;
+    border: ${theme.border.primary};
+    border-radius: ${theme.border.radius.medium};
+    width: 100%;
+    height: fit-content;
   a{
     border-radius: 24px;
-    
     display: flex;
     padding: 1rem;
     align-items: center;
@@ -38,8 +37,10 @@ export const Image = styled.img`
 export const DataContainer = styled.div`
 display: flex;
 flex-direction: column;
-gap: 0.5rem;
+gap: 1.2rem;
 width: 100%;
+align-self: end;
+
 @media(max-width: 768px) {
   width: 100%;
 }
@@ -62,6 +63,13 @@ interface InfoProps {
   fontWeight?: number;
   fontSize?: string;
 }
+
+export const IconInfoContainer = styled.div`
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  `
 export const Info = styled.p<InfoProps>`
   ${({ theme, opacity = 1, fontWeight = 500, fontSize }) => css`
 

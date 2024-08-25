@@ -80,20 +80,30 @@ function Home() {
 
 
     const filteredVehicles = useMemo(() => {
+        let bidMinValue = parseInt(filters.bidMin.label);
+        let bidMaxValue = parseInt(filters.bidMax.label);
+    
+        if (bidMaxValue < bidMinValue) {
+            [bidMinValue, bidMaxValue] = [bidMaxValue, bidMinValue];
+    
+            setFilters(prevFilters => ({
+                ...prevFilters,
+                bidMin: { ...prevFilters.bidMax, label: bidMinValue.toString() },
+                bidMax: { ...prevFilters.bidMin, label: bidMaxValue.toString() },
+            }));
+        }
+    
         const filtered = vehiclesData.filter(vehicle => {
             const isMakerMatch = filters.maker.value !== '0' ? vehicle.make === filters.maker.label : true;
             const isModelMatch = filters.model.value !== '0' ? vehicle.model === filters.model.label : true;
             const isFavoriteMatch = filters.isFavorite.value === 'all' ? true : vehicle.favourite === (filters.isFavorite.value === 'favorites');
-
-            const bidMinValue = parseInt(filters.bidMin.label);
-            const bidMaxValue = parseInt(filters.bidMax.label);
-
+    
             const isBidMinMatch = filters.bidMin.value !== '0' ? vehicle.startingBid >= bidMinValue : true;
             const isBidMaxMatch = filters.bidMax.value !== '0' ? vehicle.startingBid <= bidMaxValue : true;
-
+    
             return isMakerMatch && isModelMatch && isBidMinMatch && isBidMaxMatch && isFavoriteMatch;
         });
-
+    
         const sorted = filtered.sort((a, b) => {
             switch (filters.sortBy.value) {
                 case '1':
@@ -114,10 +124,10 @@ function Home() {
                     return 0;
             }
         });
-
+    
         return sorted;
-
-    }, [vehiclesData, filters, favorites]);
+    
+    }, [vehiclesData, filters]);
 
     const endOffset = itemOffset + itemsPerPage;
     const pageCount = Math.ceil(filteredVehicles.length / itemsPerPage);
@@ -165,11 +175,11 @@ function Home() {
 
             <S.FiltersContainer>
                 <S.FilterGroup>
-                    <E.Options2Outline  size={24} />
+                    <E.Options2Outline size={24} />
                     <Filter title="Maker" setFilter={handleFilterChange('maker')} options={allMakers} />
                     <Filter title="Model" setFilter={handleFilterChange('model')} options={allModels} isDisabled={filters.maker.value === '0'} />
-                    <Filter title="Starting Bid Min" setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
-                    <Filter title="Starting Bid Max" setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} />
+                    <Filter title="Starting Bid Min" setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMin} />
+                    <Filter title="Starting Bid Max" setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMax} />
                     <Filter title="Sort by" setFilter={handleFilterChange('sortBy')} options={sortByOptions} />
                 </S.FilterGroup>
 
@@ -197,18 +207,29 @@ function Home() {
 
             </S.Container>
             <S.PaginationContainer>
-                <ReactPaginate
-                    breakLabel="..."
-                    nextClassName='arrow'
-                    previousClassName='arrow'
-                    onPageChange={handlePageClick}
-                    pageRangeDisplayed={1}
-                    pageCount={pageCount}
-                    activeClassName='active'
-                    containerClassName={'pagination'}
-                    renderOnZeroPageCount={null}
-                />
+                <S.PaginationWrapper>
+                    <ReactPaginate
+                        breakLabel="..."
+                        nextClassName='arrow'
+                        previousClassName='arrow'
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={1}
+                        pageCount={pageCount}
+                        activeClassName='active'
+                        containerClassName={'pagination'}
+                        renderOnZeroPageCount={null}
+                    />
+                </S.PaginationWrapper>
+                <S.ItemPerPageContainer>
+                    <S.ItemPerPage
+                        onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                        value={itemsPerPage}
+                        type="number"
+                    />
+                    results per page
+                </S.ItemPerPageContainer>
             </S.PaginationContainer>
+
 
         </S.Main>
     );
