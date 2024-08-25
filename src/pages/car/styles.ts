@@ -2,17 +2,17 @@ import styled from "styled-components";
 
 export const Main = styled.div`
     width: 100%;
-
+    max-width: 1300px;
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
     align-items: center;
 `
 
 export const Container = styled.div`
-    max-width: 1300px;
     width: 100%;
     display: flex;
     flex-direction: column;
+    padding: 2rem 1.5rem;
 
 `
 
@@ -27,15 +27,13 @@ gap: 1rem;
 
 export const ImageContainer = styled.div`
     display: flex;
+    width: 100%;
     background-color: ${({ theme }) => theme.colors.white};
-    padding: 1.5rem;
-    width: fit-content;
 `
 
 export const Image = styled.img`
-    max-width: 750px;
+    max-width: 800px;
     width: 100%;
-    object-fit: cover;
     aspect-ratio: 10/7;
 `
 
@@ -47,7 +45,8 @@ export const InfoContainer = styled.div`
     padding: 1rem;
     height: fit-content;
     background-color: ${({ theme }) => theme.colors.white};
-
+    max-width: 400px;
+    width: 100%;
 `
 export const InfoTitle = styled.h1`
 
@@ -66,7 +65,6 @@ export const DataContainer = styled.div`
     gap: 1rem;
     max-width: 800px;
     width: 100%;
-    padding: 2rem 1rem;
 
 `
 
@@ -112,6 +110,7 @@ export const List = styled.ul`
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  padding: 0 1rem;
   max-width: 130rem;
   @media(max-width: 800px){
   max-width: 80%;
@@ -133,15 +132,26 @@ export const DetailsContainer = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
-    padding: 1rem;
+    padding: 0 1rem;
 
+    @media(max-width: 768px){
 
+        grid-template-columns: 1fr;
+    }
 `
 
 export const Detail = styled.div`
 
     display: grid;
     grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    :first-child {
+        font-weight: 600;
+    };
+    :last-child {
+        opacity: 0.7;
+        font-weight: 500;
+    }
 
 `
 

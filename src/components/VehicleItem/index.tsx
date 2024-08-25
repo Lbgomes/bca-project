@@ -1,13 +1,12 @@
-import { useState, useEffect, useCallback } from 'react';
-import { differenceInDays, differenceInHours, addDays } from 'date-fns';
 import { Link } from 'react-router-dom';
 import * as S from './styles';
 import placeholder from '../../assets/car.jpg';
 import { VehicleType } from 'types/vehicle';
 import 'react-loading-skeleton/dist/skeleton.css'
-import { useCar } from 'context/car';
 import DataWithSkeleton from 'components/Skeleton';
 import { VehicleData } from 'components/VehicleData';
+import * as Bs from '@styled-icons/boxicons-solid';
+import * as Br from '@styled-icons/boxicons-regular';
 
 interface VehicleItemProps {
     index: number;
@@ -25,13 +24,16 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
 
             <Link to={`/${index + 1}`} onClick={() => { handleCarData(vehicle); window.scrollTo(0, 0); }}>
                 <S.ImageContainer>
-                <DataWithSkeleton width={215} height={162.4}>
-                    <S.Image src={placeholder} />
-                </DataWithSkeleton>
+                    <DataWithSkeleton width={215} height={162.4}>
+                        <S.Image src={placeholder} />
+                    </DataWithSkeleton>
                 </S.ImageContainer>
 
-        <VehicleData vehicle={vehicle} handleFavourite={handleFavourite} isFavorite={isFavorite} />
+                <VehicleData vehicle={vehicle} isFavorite={isFavorite} />
             </Link>
+                <S.Favourite onClick={() => handleFavourite(vehicle)}>
+                    {isFavorite ? <Bs.Heart aria-label="favourite" /> : <Br.Heart aria-label="non-favourite" />}
+                </S.Favourite>
 
 
         </S.VehicleContainer>

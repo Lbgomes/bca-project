@@ -9,14 +9,14 @@ import * as Br from '@styled-icons/boxicons-regular';
 import * as fl from '@styled-icons/fluentui-system-regular';
 interface VehicleDataProps {
     vehicle: VehicleType;
-    handleFavourite: (vehicle: VehicleType) => void;
+
     isFavorite: boolean;
     page?: 'home' | 'car';
 }
-export const VehicleData = ({ vehicle, handleFavourite, isFavorite, page = 'home' }: VehicleDataProps) => {
+export const VehicleData = ({ vehicle, isFavorite, page = 'home' }: VehicleDataProps) => {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0 });
-    const { handleIsLoading } = useCar();
-    
+    const { handleIsLoading, handleFavourite } = useCar();
+
     const calculateTimeLeft = useCallback(() => {
         const now = new Date();
         const eventTime = new Date(vehicle.auctionDateTime);
@@ -41,80 +41,80 @@ export const VehicleData = ({ vehicle, handleFavourite, isFavorite, page = 'home
 
 
     const { days, hours } = timeLeft;
-    
+
     return (
         <S.DataContainer>
 
-        <DataWithSkeleton height={32}>
-            <S.TitleFavouriteContainer>
+            <DataWithSkeleton height={32}>
+                <S.TitleFavouriteContainer>
 
-                <S.Title >
-                    {vehicle.make} {vehicle.model}
-                </S.Title>
+                    <S.Title >
+                        {vehicle.make} {vehicle.model}
+                    </S.Title>
 
-                <S.Favourite onClick={() => handleFavourite(vehicle)}>
-                    {isFavorite ? <Bs.Heart aria-label="favourite" /> : <Br.Heart aria-label="non-favourite" />}
-                </S.Favourite>
+                    <S.Favourite onClick={() => handleFavourite(vehicle)} page={page}>
+                        {isFavorite ? <Bs.Heart aria-label="favourite" /> : <Br.Heart aria-label="non-favourite" />}
+                    </S.Favourite>
 
-            </S.TitleFavouriteContainer>
-        </DataWithSkeleton>
+                </S.TitleFavouriteContainer>
+            </DataWithSkeleton>
 
-        <DataWithSkeleton width={90} height={19} isHidden={page === 'car'}>
-            <S.IconInfoContainer>
-                <fl.TopSpeed size={16} color='#000' />
-                <S.Info opacity={0.6}>
-                    {vehicle.mileage.toLocaleString('de-DE')}km
-                </S.Info>
-            </S.IconInfoContainer>
-        </DataWithSkeleton>
-        <S.EventInfoContainer page={page}>
+            <DataWithSkeleton width={90} height={19} ishidden={page === 'car'}>
+                <S.IconInfoContainer>
+                    <fl.TopSpeed size={16} color='#000' />
+                    <S.Info opacity={0.6}>
+                        {vehicle.mileage.toLocaleString('de-DE')}km
+                    </S.Info>
+                </S.IconInfoContainer>
+            </DataWithSkeleton>
+            <S.EventInfoContainer page={page}>
 
-            <DataWithSkeleton width={150} height={70}>
-                <S.Info opacity={0.8}>
+                <DataWithSkeleton width={150} height={70}>
+                    <S.Info opacity={0.8}>
+                        {
+                            (days === 0 && hours === 0) ?
+                                'This event has started' :
+                                `This event will begin in`
+                        }
+                    </S.Info>
                     {
-                        (days === 0 && hours === 0) ?
-                            'This event has started' :
-                            `This event will begin in`
+                        (days !== 0 && hours !== 0) && (
+
+                            <S.AuctionContainer>
+                                <S.EventTimeContainer>
+                                    <S.EventTime>
+                                        <S.Info>
+                                            {days}
+                                        </S.Info>
+                                    </S.EventTime>
+                                    <S.Info fontSize='12px'>
+                                        {days === 1 ? 'day' : 'days'}
+                                    </S.Info>
+                                </S.EventTimeContainer>
+                                <S.EventTimeContainer>
+                                    <S.EventTime>
+                                        <S.Info>
+                                            {hours}
+                                        </S.Info>
+                                    </S.EventTime>
+                                    <S.Info fontSize='12px'>
+                                        {hours === 1 ? 'hour' : 'hours'}
+                                    </S.Info>
+                                </S.EventTimeContainer>
+                            </S.AuctionContainer>
+                        )
                     }
-                </S.Info>
-                {
-                    (days !== 0 && hours !== 0) && (
+                </DataWithSkeleton>
+                <DataWithSkeleton width={90} height={52}>
+                    <S.BidContainer>
+                        <S.Info opacity={0.5} fontWeight={600}> Starting Bid: </S.Info>
+                        <S.Price>€ {vehicle.startingBid.toLocaleString('de-DE')}</S.Price>
 
-                        <S.AuctionContainer>
-                            <S.EventTimeContainer>
-                                <S.EventTime>
-                                    <S.Info>
-                                        {days}
-                                    </S.Info>
-                                </S.EventTime>
-                                <S.Info fontSize='12px'>
-                                    {days === 1 ? 'day' : 'days'}
-                                </S.Info>
-                            </S.EventTimeContainer>
-                            <S.EventTimeContainer>
-                                <S.EventTime>
-                                    <S.Info>
-                                        {hours}
-                                    </S.Info>
-                                </S.EventTime>
-                                <S.Info fontSize='12px'>
-                                    {hours === 1 ? 'hour' : 'hours'}
-                                </S.Info>
-                            </S.EventTimeContainer>
-                        </S.AuctionContainer>
-                    )
-                }
-            </DataWithSkeleton>
-            <DataWithSkeleton width={90} height={52}>
-                <S.BidContainer>
-                    <S.Info opacity={0.5} fontWeight={600}> Starting Bid: </S.Info>
-                    <S.Price>€ {vehicle.startingBid.toLocaleString('de-DE')}</S.Price>
+                    </S.BidContainer>
 
-                </S.BidContainer>
+                </DataWithSkeleton>
+            </S.EventInfoContainer>
 
-            </DataWithSkeleton>
-        </S.EventInfoContainer>
-
-    </S.DataContainer>
+        </S.DataContainer>
     )
 }

@@ -110,22 +110,19 @@ export const IconInfoContainer = styled.div`
   `
 
 
-export const Favourite = styled.button`
-${({ theme }) => css`
+export const Favourite = styled.button<pageProps>`
+${({ theme, page }) => css`
 border: none;
 width: 2rem;
 height: 2rem;
-display: flex;
+display: ${page === 'home' ? 'none' : 'flex'};
 justify-content: center;
 align-items: center;
-position: absolute;
-top: 1rem;
-right: 1rem;
 padding: 0.3rem;
 cursor: pointer;
 background-color:  ${theme.colors.white};
 @media (max-width: 768px) {
-  position: unset;
+  display: flex;
 }
 `}
 `

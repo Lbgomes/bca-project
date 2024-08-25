@@ -1,11 +1,11 @@
 import { css, styled } from "styled-components";
 
 interface ContainerProps {
-    isHidden?: boolean
+    ishidden?: boolean
 }
 export const Container = styled.div<ContainerProps>`
-    ${({ isHidden }) => css`
-        display: ${isHidden ? 'none' : 'block'};
+    ${({ ishidden }) => css`
+        display: ${ishidden ? 'none' : 'block'};
 
 `}
 `

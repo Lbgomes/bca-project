@@ -6,14 +6,14 @@ interface DataWithSkeletonProps {
     children: React.ReactNode;
     width?: number;
     height?: string | number | undefined;
-    isHidden?: boolean;
+    ishidden?: boolean;
 }
 
-function DataWithSkeleton({ children, width = 150, height, isHidden = false }: DataWithSkeletonProps) {
+function DataWithSkeleton({ children, width = 150, height, ishidden = false }: DataWithSkeletonProps) {
     const { isLoading } = useCar()
 
     return (
-        <S.Container isHidden={isHidden}>
+        <S.Container ishidden={ishidden}>
             {isLoading ?
                 <S.Container aria-label='loading' >
                     <Skeleton aria-label="loading" width={width ? width : 'auto'} height={height ? height : 'auto'} borderRadius={'10px'} />

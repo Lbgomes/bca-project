@@ -23,11 +23,11 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
                 onChange={(e) => setFilter(e as { label: string, value: string })}
                 aria-label='Filter'
                 styles={{
-                    control: (baseStyles, props) => (console.log(),{
+                    control: (baseStyles, props) => ( console.log(props.selectProps.value),{
 
                         ...baseStyles,
                         width: 'fit-content',
-                        border: props.selectProps.value ? "2px solid #000" : "2px solid #E4E4E4",
+                        border: props.selectProps.value && (props.selectProps.value as { label: string, value: string })?.value !== '0' ? "2px solid #000" : "2px solid #E4E4E4",
                         borderRadius: "10px",
 
                         color:"#000",

@@ -15,10 +15,9 @@ function Home() {
 
     const defaultFilter = { label: 'Select your filter', value: '0' };
 
-    const { vehiclesData, handleIsLoading } = useCar()
+    const { vehiclesData, handleIsLoading, handleFavourite, favorites } = useCar()
     const [isFiltersOpen, setIsFiltersOpen] = useState(true)
     const [currentPage, setCurrentPage] = useState(0);
-    const [favorites, setFavorites] = useState<VehicleType[]>([])
     const [itemsPerPage, setItemsPerPage] = useState(15)
     const [itemOffset, setItemOffset] = useState(0);
     const [filters, setFilters] = useState({
@@ -82,28 +81,28 @@ function Home() {
     const filteredVehicles = useMemo(() => {
         let bidMinValue = parseInt(filters.bidMin.label);
         let bidMaxValue = parseInt(filters.bidMax.label);
-    
+
         if (bidMaxValue < bidMinValue) {
             [bidMinValue, bidMaxValue] = [bidMaxValue, bidMinValue];
-    
+
             setFilters(prevFilters => ({
                 ...prevFilters,
                 bidMin: { ...prevFilters.bidMax, label: bidMinValue.toString() },
                 bidMax: { ...prevFilters.bidMin, label: bidMaxValue.toString() },
             }));
         }
-    
+
         const filtered = vehiclesData.filter(vehicle => {
             const isMakerMatch = filters.maker.value !== '0' ? vehicle.make === filters.maker.label : true;
             const isModelMatch = filters.model.value !== '0' ? vehicle.model === filters.model.label : true;
             const isFavoriteMatch = filters.isFavorite.value === 'all' ? true : vehicle.favourite === (filters.isFavorite.value === 'favorites');
-    
+
             const isBidMinMatch = filters.bidMin.value !== '0' ? vehicle.startingBid >= bidMinValue : true;
             const isBidMaxMatch = filters.bidMax.value !== '0' ? vehicle.startingBid <= bidMaxValue : true;
-    
+
             return isMakerMatch && isModelMatch && isBidMinMatch && isBidMaxMatch && isFavoriteMatch;
         });
-    
+
         const sorted = filtered.sort((a, b) => {
             switch (filters.sortBy.value) {
                 case '1':
@@ -124,9 +123,9 @@ function Home() {
                     return 0;
             }
         });
-    
+
         return sorted;
-    
+
     }, [vehiclesData, filters]);
 
     const endOffset = itemOffset + itemsPerPage;
@@ -138,14 +137,6 @@ function Home() {
         setItemOffset(newOffset);
         window.scrollTo(0, 0);
     };
-
-    const handleFavourite = (vehicle: VehicleType) => {
-        if (favorites.includes(vehicle)) {
-            setFavorites(favorites.filter((fav) => fav !== vehicle))
-        } else {
-            setFavorites([...favorites, vehicle])
-        }
-    }
 
     const handleFilterChange = (filterName: string) => (selectedOption: Options) => {
         setFilters(prevFilters => ({
@@ -159,11 +150,6 @@ function Home() {
     }, [filters.maker])
 
     useEffect(() => {
-        const initialFavorites = vehiclesData.filter((vehicle: VehicleType) => vehicle.favourite === true)
-        setFavorites(initialFavorites)
-    }, [vehiclesData])
-
-    useEffect(() => {
         setFilters(prevFilters => ({
             ...prevFilters,
             model: defaultFilter,
@@ -173,40 +159,41 @@ function Home() {
     useEffect(() => {
         handleIsLoading(true);
     }, [currentPage])
+
     return (
         <S.Main>
 
             <S.FiltersContainer>
-                    <E.Options2Outline size={24} onClick={() => setIsFiltersOpen(!isFiltersOpen)} />
-                    {
-                        isFiltersOpen && (
-                <S.FilterGroup>
-                    <Filter title="Maker" setFilter={handleFilterChange('maker')} options={allMakers} />
-                    <Filter title="Model" setFilter={handleFilterChange('model')} options={allModels} isDisabled={filters.maker.value === '0'} />
-                    <Filter title="Starting Bid Min" setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMin} />
-                    <Filter title="Starting Bid Max" setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMax} />
-                    <Filter title="Sort by" setFilter={handleFilterChange('sortBy')} options={sortByOptions} />
-                <S.SwitchContainer>
-                    <SwitchSelector
-                        onChange={(e: any) => {
-                            handleIsLoading(true);
-                            setFilters(prevFilters => ({
-                                ...prevFilters,
-                                isFavorite: { label: e.label, value: e },
-                            }))
-                        }}
-                        options={FavoriteOptions}
-                        wrapperBorderRadius={8}
-                        optionBorderRadius={6}
-                        initialSelectedIndex={0}
-                        backgroundColor={"#EEEEEE"}
-                        fontColor={"#585858"}
-                    />
-                </S.SwitchContainer>
-                </S.FilterGroup>
+                <E.Options2Outline size={24} onClick={() => setIsFiltersOpen(!isFiltersOpen)} />
+                {
+                    isFiltersOpen && (
+                        <S.FilterGroup>
+                            <Filter title="Maker" setFilter={handleFilterChange('maker')} options={allMakers} />
+                            <Filter title="Model" setFilter={handleFilterChange('model')} options={allModels} isDisabled={filters.maker.value === '0'} />
+                            <Filter title="Starting Bid Min" setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMin} />
+                            <Filter title="Starting Bid Max" setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMax} />
+                            <Filter title="Sort by" setFilter={handleFilterChange('sortBy')} options={sortByOptions} />
+                            <S.SwitchContainer>
+                                <SwitchSelector
+                                    onChange={(e: any) => {
+                                        handleIsLoading(true);
+                                        setFilters(prevFilters => ({
+                                            ...prevFilters,
+                                            isFavorite: { label: e.label, value: e },
+                                        }))
+                                    }}
+                                    options={FavoriteOptions}
+                                    wrapperBorderRadius={8}
+                                    optionBorderRadius={6}
+                                    initialSelectedIndex={0}
+                                    backgroundColor={"#EEEEEE"}
+                                    fontColor={"#585858"}
+                                />
+                            </S.SwitchContainer>
+                        </S.FilterGroup>
 
-                        )
-                    }
+                    )
+                }
 
             </S.FiltersContainer>
             <S.Container>

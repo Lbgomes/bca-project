@@ -8,7 +8,6 @@ export const Main = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%; 
   padding: 0 1.5rem;
 `
 export const FiltersContainer = styled.div`
