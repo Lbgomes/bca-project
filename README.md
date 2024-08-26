@@ -33,7 +33,7 @@ $ cd bca-project
 $ npm install
 
 # Run the application
-$ npm run dev
+$ npm run start
 
 # The server will run on the port:3000 - go to http://localhost:3000
 
