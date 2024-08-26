@@ -29,12 +29,13 @@ export const ImageContainer = styled.div`
     display: flex;
     width: 100%;
     background-color: ${({ theme }) => theme.colors.white};
-`
+    `
 
 export const Image = styled.img`
     max-width: 800px;
     width: 100%;
     aspect-ratio: 10/7;
+    border-radius: ${({ theme }) => theme.border.radius.small};
 `
 
 

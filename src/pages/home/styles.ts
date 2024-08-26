@@ -83,7 +83,7 @@ margin-top: 2rem;
 export const Title = styled.h2`
   color: ${({ theme }) => theme.colors.black};
   font-size: ${({ theme }) => theme.sizes.medium};
-  font-weight: 500;
+  font-weight: 600;
 `
 
 export const PaginationContainer = styled.div`

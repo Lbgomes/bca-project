@@ -56,7 +56,7 @@ export const VehicleData = ({ vehicle, isFavorite, page = 'home' }: VehicleDataP
                 </S.TitleFavouriteContainer>
             </DataWithSkeleton>
 
-            <DataWithSkeleton width={90} height={126} ishidden={page === 'car'}>
+            <DataWithSkeleton width={90} height={105} ishidden={page === 'car'}>
                 <S.DataIconsContainer>
 
                     <S.IconInfoContainer>
@@ -112,7 +112,7 @@ export const VehicleData = ({ vehicle, isFavorite, page = 'home' }: VehicleDataP
                                             {days}
                                         </S.Info>
                                     </S.EventTime>
-                                    <S.Info fontSize='12px'>
+                                    <S.Info fontSize='12px' fontWeight={600}>
                                         {days === 1 ? 'day' : 'days'}
                                     </S.Info>
                                 </S.EventTimeContainer>
@@ -122,7 +122,7 @@ export const VehicleData = ({ vehicle, isFavorite, page = 'home' }: VehicleDataP
                                             {hours}
                                         </S.Info>
                                     </S.EventTime>
-                                    <S.Info fontSize='12px'>
+                                    <S.Info fontSize='12px' fontWeight={600}>
                                         {hours === 1 ? 'hour' : 'hours'}
                                     </S.Info>
                                 </S.EventTimeContainer>

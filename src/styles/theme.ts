@@ -24,7 +24,7 @@ export default {
     xxlarge: '3.2rem'
   },
   font: {
-    family: "'Nunito Sans', sans-serif",
+    family: "'gilroy', sans-serif",
     semiRegular: 300,
     regular: 400,
     semiBold: 600,

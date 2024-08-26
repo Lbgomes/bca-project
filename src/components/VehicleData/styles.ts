@@ -105,7 +105,7 @@ export const Title = styled.h2`
 
   color: ${theme.colors.black};
   font-size: ${theme.font.sizes.medium};
-  font-weight: 500;
+  font-weight: 600;
 `}
 `
 
