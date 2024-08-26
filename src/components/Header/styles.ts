@@ -12,7 +12,7 @@ export const HeaderContainer = styled.header`
 export const Container = styled.div`
     display: flex;
     align-items: center;
-    max-width: 1300px;
+    max-width: 80vw;
     width: 100%;
     margin: 0 auto;
     justify-content: space-between;
@@ -33,7 +33,7 @@ display: flex;
     cursor: pointer;
 `
 
-export const Favourite = styled.div`
+export const Favourite = styled.button`
 ${({ theme }) => css`
 border: none;
 width: 1.5rem;
