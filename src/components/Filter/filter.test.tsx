@@ -31,7 +31,7 @@ describe('Filter Component', () => {
 
         expect(screen.getByText('Test Filter')).toBeInTheDocument();
 
-        const selectElement = screen.getByRole('listbox');
+        const selectElement = screen.getByRole('combobox');
         expect(selectElement).toBeInTheDocument();
     });
 
@@ -44,7 +44,7 @@ describe('Filter Component', () => {
             </ThemeProvider>
         );
 
-        const selectElement = screen.getByRole('listbox');
+        const selectElement = screen.getByRole('combobox');
         fireEvent.focus(selectElement);
 
         expect(screen.getByText('Select your filter')).toBeInTheDocument();
@@ -61,7 +61,7 @@ describe('Filter Component', () => {
             </ThemeProvider>
         );
 
-        const selectElement = screen.getByRole('listbox');
+        const selectElement = screen.getByRole('combobox');
         fireEvent.focus(selectElement);
         fireEvent.keyDown(selectElement, { key: 'ArrowDown', code: 40 });
         fireEvent.keyDown(selectElement, { key: 'ArrowDown', code: 40 });

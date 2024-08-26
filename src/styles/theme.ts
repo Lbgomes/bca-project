@@ -46,6 +46,7 @@ export default {
     white: '#FFFFFF',
     black: '#000000',
     gray: '#585858',
+    darkGray: '#2E2E2E',
     neutral: '#EBEBEB',
     background: '#EEEEEE',
   },

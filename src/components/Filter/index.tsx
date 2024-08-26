@@ -23,7 +23,7 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
                 onChange={(e) => setFilter(e as { label: string, value: string })}
                 aria-label='Filter'
                 styles={{
-                    control: (baseStyles, props) => ( console.log(props.selectProps.value),{
+                    control: (baseStyles, props) => ({
 
                         ...baseStyles,
                         width: 'fit-content',

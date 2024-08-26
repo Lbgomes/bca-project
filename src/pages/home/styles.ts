@@ -69,7 +69,7 @@ label {
 `}
 `
 
-export const Container = styled.div`
+export const ResultsContainer = styled.div`
 width: 100%;
 min-height: 700px;
 display: flex;

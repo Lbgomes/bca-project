@@ -7,6 +7,7 @@ import { useCar } from 'context/car';
 import VehicleList from 'components/VehiclesList';
 import SwitchSelector from "react-switch-selector";
 import * as E from '@styled-icons/evaicons-outline/Options2Outline'
+
 function Home() {
     interface Options {
         label: string
@@ -146,10 +147,6 @@ function Home() {
     };
 
     useEffect(() => {
-        handleFilterChange('model')(defaultFilter)
-    }, [filters.maker])
-
-    useEffect(() => {
         setFilters(prevFilters => ({
             ...prevFilters,
             model: defaultFilter,
@@ -162,69 +159,67 @@ function Home() {
 
     return (
         <S.Main>
+                <S.FiltersContainer>
+                    <E.Options2Outline size={24} onClick={() => setIsFiltersOpen(!isFiltersOpen)} />
+                    {
+                        isFiltersOpen && (
+                            <S.FilterGroup>
+                                <Filter title="Maker" setFilter={handleFilterChange('maker')} options={allMakers} />
+                                <Filter title="Model" setFilter={handleFilterChange('model')} options={allModels} isDisabled={filters.maker.value === '0'} />
+                                <Filter title="Starting Bid Min" setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMin} />
+                                <Filter title="Starting Bid Max" setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMax} />
+                                <Filter title="Sort by" setFilter={handleFilterChange('sortBy')} options={sortByOptions} />
+                                <S.SwitchContainer>
+                                    <SwitchSelector
+                                        onChange={(e: any) => {
+                                            handleIsLoading(true);
+                                            setFilters(prevFilters => ({
+                                                ...prevFilters,
+                                                isFavorite: { label: e.label, value: e },
+                                            }))
+                                        }}
+                                        options={FavoriteOptions}
+                                        wrapperBorderRadius={8}
+                                        optionBorderRadius={6}
+                                        initialSelectedIndex={0}
+                                        backgroundColor={"#EEEEEE"}
+                                        fontColor={"#585858"}
+                                    />
+                                </S.SwitchContainer>
+                            </S.FilterGroup>
 
-            <S.FiltersContainer>
-                <E.Options2Outline size={24} onClick={() => setIsFiltersOpen(!isFiltersOpen)} />
-                {
-                    isFiltersOpen && (
-                        <S.FilterGroup>
-                            <Filter title="Maker" setFilter={handleFilterChange('maker')} options={allMakers} />
-                            <Filter title="Model" setFilter={handleFilterChange('model')} options={allModels} isDisabled={filters.maker.value === '0'} />
-                            <Filter title="Starting Bid Min" setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMin} />
-                            <Filter title="Starting Bid Max" setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMax} />
-                            <Filter title="Sort by" setFilter={handleFilterChange('sortBy')} options={sortByOptions} />
-                            <S.SwitchContainer>
-                                <SwitchSelector
-                                    onChange={(e: any) => {
-                                        handleIsLoading(true);
-                                        setFilters(prevFilters => ({
-                                            ...prevFilters,
-                                            isFavorite: { label: e.label, value: e },
-                                        }))
-                                    }}
-                                    options={FavoriteOptions}
-                                    wrapperBorderRadius={8}
-                                    optionBorderRadius={6}
-                                    initialSelectedIndex={0}
-                                    backgroundColor={"#EEEEEE"}
-                                    fontColor={"#585858"}
-                                />
-                            </S.SwitchContainer>
-                        </S.FilterGroup>
+                        )
+                    }
 
-                    )
-                }
+                </S.FiltersContainer>
+                <S.ResultsContainer>
+                    <S.Title>Results</S.Title>
+                    <VehicleList currentItems={currentItems} handleFavourite={handleFavourite} favorites={favorites} page={currentPage} />
 
-            </S.FiltersContainer>
-            <S.Container>
-                <S.Title>Results</S.Title>
-                <VehicleList currentItems={currentItems} handleFavourite={handleFavourite} favorites={favorites} page={currentPage} />
-
-            </S.Container>
-            <S.PaginationContainer>
-                <S.PaginationWrapper>
-                    <ReactPaginate
-                        breakLabel="..."
-                        nextClassName='arrow'
-                        previousClassName='arrow'
-                        onPageChange={handlePageClick}
-                        pageRangeDisplayed={1}
-                        pageCount={pageCount}
-                        activeClassName='active'
-                        containerClassName={'pagination'}
-                        renderOnZeroPageCount={null}
-                    />
-                </S.PaginationWrapper>
-                <S.ItemPerPageContainer>
-                    <S.ItemPerPage
-                        onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-                        value={itemsPerPage}
-                        type="number"
-                    />
-                    results per page
-                </S.ItemPerPageContainer>
-            </S.PaginationContainer>
-
+                </S.ResultsContainer>
+                <S.PaginationContainer>
+                    <S.PaginationWrapper>
+                        <ReactPaginate
+                            breakLabel="..."
+                            nextClassName='arrow'
+                            previousClassName='arrow'
+                            onPageChange={handlePageClick}
+                            pageRangeDisplayed={1}
+                            pageCount={pageCount}
+                            activeClassName='active'
+                            containerClassName={'pagination'}
+                            renderOnZeroPageCount={null}
+                        />
+                    </S.PaginationWrapper>
+                    <S.ItemPerPageContainer>
+                        <S.ItemPerPage
+                            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                            value={itemsPerPage}
+                            type="number"
+                        />
+                        results per page
+                    </S.ItemPerPageContainer>
+                </S.PaginationContainer>
 
         </S.Main>
     );

@@ -78,7 +78,7 @@ export const VehicleData = ({ vehicle, isFavorite, page = 'home' }: VehicleDataP
                         }
                     </S.Info>
                     {
-                        (days !== 0 && hours !== 0) && (
+                        (days > 0 || hours > 0) && (
 
                             <S.AuctionContainer>
                                 <S.EventTimeContainer>
