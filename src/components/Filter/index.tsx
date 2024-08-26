@@ -30,9 +30,9 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
                         border: props.selectProps.value && (props.selectProps.value as { label: string, value: string })?.value !== '0' ? "2px solid #000" : "2px solid #E4E4E4",
                         borderRadius: "10px",
 
-                        color:"#000",
+                        color: "#000",
                         "div": {
-                            color: props.isDisabled ? "#b9b9b9" :  "#2E2E2E",
+                            color: props.isDisabled ? "#b9b9b9" : "#2E2E2E",
                             fontWeight: 600,
                         },
                         "span": {
@@ -52,7 +52,7 @@ export default function Filter({ title, isDisabled = false, options = [], setFil
                         cursor: "pointer",
                         borderColor: "#E3E5F2",
                         zIndex: 10,
-                        
+
                     }),
                     option: (baseStyles, state) => ({
                         ...baseStyles,

@@ -171,8 +171,8 @@ function Home() {
                 {
                     isFiltersOpen && (
                         <S.FilterGroup>
-                            <Filter title="Maker" setFilter={handleFilterChange('maker')} options={allMakers} />
-                            <Filter title="Model" setFilter={handleFilterChange('model')} options={allModels} isDisabled={filters.maker.value === '0'} />
+                            <Filter title="Maker" setFilter={handleFilterChange('maker')} options={allMakers.sort((a, b) => a.label.localeCompare(b.label))} />
+                            <Filter title="Model" setFilter={handleFilterChange('model')} options={allModels.sort((a, b) => a.label.localeCompare(b.label))} isDisabled={filters.maker.value === '0'} />
                             <Filter title="Starting Bid Min" setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMin} />
                             <Filter title="Starting Bid Max" setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMax} />
                             <Filter title="Sort by" setFilter={handleFilterChange('sortBy')} options={sortByOptions} />

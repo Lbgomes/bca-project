@@ -7,7 +7,6 @@ import DataWithSkeleton from 'components/Skeleton';
 import { VehicleData } from 'components/VehicleData';
 import * as Bs from '@styled-icons/boxicons-solid';
 import * as Br from '@styled-icons/boxicons-regular';
-import { useNavigate } from 'react-router-dom';
 
 interface VehicleItemProps {
     index: number;
@@ -25,7 +24,7 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
 
             <Link to={`/${index + 1}`} onClick={() => { handleCarData(vehicle); window.scrollTo(0, 0); }}>
                 <S.ImageContainer>
-                    <DataWithSkeleton width={215} height={162.4}>
+                    <DataWithSkeleton >
                         <S.Image src={placeholder} />
                     </DataWithSkeleton>
                 </S.ImageContainer>

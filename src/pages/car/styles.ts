@@ -110,6 +110,10 @@ export const Highlight = styled.div`
     flex-direction: column;
     align-items: center;
     width: fit-content;
+    gap: 0.3rem;
+    :nth-child( 2) {
+        font-weight: 700;
+    }
     svg {
         width: 1.5rem;
     }
@@ -119,6 +123,7 @@ export const Highlight = styled.div`
 export const HighlightText = styled.p`
 
     color: ${({ theme }) => theme.colors.black};
+    text-transform: capitalize;
     font-size: 15px;
     font-weight: 500;
 

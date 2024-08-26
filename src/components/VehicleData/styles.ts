@@ -70,7 +70,7 @@ interface InfoProps {
 
 export const Info = styled.p<InfoProps>`
   ${({ theme, opacity = 1, fontWeight = 500, fontSize }) => css`
-
+  text-transform: capitalize;
   color: ${theme.colors.black};
   font-size: ${fontSize ? fontSize : theme.font.sizes.xsmall};
   font-weight: ${fontWeight};

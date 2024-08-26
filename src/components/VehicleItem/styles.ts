@@ -32,9 +32,15 @@ export const SkeletonContainer = styled.div`
 `
 export const ImageContainer = styled.div`
     align-self: flex-start;
-  width: 215px;
+    max-width: 300px;
+  width: 100%;
+  aspect-ratio: 13/10;
+  .react-loading-skeleton {
+    max-width: 300px;
+  width: 100% !important;
   aspect-ratio: 13/10;
 
+  }
   @media(max-width: 650px) {
     width: 100%;
   aspect-ratio: 13/10;
@@ -48,7 +54,8 @@ export const ImageContainer = styled.div`
 
 export const Image = styled.img`
   ${({ theme }) => css`
-  width: 215px;
+  align-self: flex-start;
+  max-width: 300px;
   aspect-ratio: 13/10;
   border-radius: ${theme.border.radius.smallHalf};
   @media(max-width: 650px) {

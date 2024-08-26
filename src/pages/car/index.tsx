@@ -5,22 +5,58 @@ import * as B from '@styled-icons/bootstrap'
 import * as Br from '@styled-icons/boxicons-regular'
 import * as fl from '@styled-icons/fluentui-system-regular'
 import * as M from '@styled-icons/material-outlined/PersonSearch'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { VehicleData } from "components/VehicleData"
 function Car() {
 
+    type Options = { label: string, value: string }
     const { vehiclesData, handleCarData, carData } = useCar()
     const { pathname } = useLocation()
-
+    const [details, setDetails] = useState<Options[]>([] as Options[])
     const id = pathname.split('/')[1]
+
+    interface HighlightProps {
+        label: string
+        value: string
+        Icon: React.ReactNode
+    }
+    const RenderHighlight = ({ Icon, label, value }: HighlightProps) => (
+        <S.Highlight>
+            {Icon}
+            <S.HighlightText>{label}</S.HighlightText>
+            <S.HighlightText>{value}</S.HighlightText>
+        </S.Highlight>
+    );
 
     useEffect(() => {
         if (!carData) {
             handleCarData(vehiclesData[parseInt(id) - 1])
         }
     })
-
+    useEffect(() => {
+        if (carData)
+            setDetails([
+                { label: "Maker", value: carData.make },
+                { label: "Model", value: carData.model },
+                { label: "Engine Size", value: carData.engineSize },
+                { label: "Fuel Type", value: carData.fuel },
+                { label: "Year", value: carData.year.toString() },
+                { label: "Mileage", value: `${carData.mileage} km` },
+                { label: "Starting Bid", value: `$${carData.startingBid.toLocaleString()}` },
+                { label: "Vehicle Type", value: carData.details.specification.vehicleType },
+                { label: "Colour", value: carData.details.specification.colour },
+                { label: "Fuel (Specification)", value: carData.details.specification.fuel },
+                { label: "Transmission", value: carData.details.specification.transmission },
+                { label: "Number of Doors", value: carData.details.specification.numberOfDoors.toString() },
+                { label: "CO2 Emissions", value: carData.details.specification.co2Emissions },
+                { label: "NOx Emissions", value: carData.details.specification.noxEmissions.toString() },
+                { label: "Number of Keys", value: carData.details.specification.numberOfKeys.toString() },
+                { label: "Log Book", value: carData.details.ownership.logBook },
+                { label: "Number of Owners", value: carData.details.ownership.numberOfOwners.toString() },
+                { label: "Date of Registration", value: new Date(carData.details.ownership.dateOfRegistration).toLocaleDateString() }
+            ])
+    }, [carData])
     return (
 
         <S.Main>
@@ -41,40 +77,12 @@ function Car() {
                                 <S.Title>Highlights</S.Title>
 
                                 <S.HighlightDataContainer>
-                                    <S.Highlight>
-                                        <B.Speedometer />
-                                        <S.HighlightText>Mileage</S.HighlightText>
-                                        <S.HighlightText>{carData.mileage} km</S.HighlightText>
-
-                                    </S.Highlight>
-
-                                    <S.Highlight>
-                                        <B.Calendar />
-                                        <S.HighlightText>Year</S.HighlightText>
-                                        <S.HighlightText>{carData.year}</S.HighlightText>
-
-                                    </S.Highlight>
-                                    <S.Highlight>
-                                        <Br.GasPump />
-                                        <S.HighlightText>Gas</S.HighlightText>
-                                        <S.HighlightText>{carData.fuel}</S.HighlightText>
-                                    </S.Highlight>
-                                    <S.Highlight>
-                                        <fl.Engine />
-                                        <S.HighlightText>Engine Size</S.HighlightText>
-                                        <S.HighlightText>{carData.engineSize}</S.HighlightText>
-                                    </S.Highlight>
-                                    <S.Highlight>
-                                        <fl.Transmission />
-                                        <S.HighlightText>Gear Type</S.HighlightText>
-                                        <S.HighlightText>{carData.details.specification.transmission}</S.HighlightText>
-                                    </S.Highlight>
-                                    <S.Highlight>
-                                        <M.PersonSearch />
-                                        <S.HighlightText>Past owners</S.HighlightText>
-                                        <S.HighlightText>{carData.details.ownership.numberOfOwners}</S.HighlightText>
-
-                                    </S.Highlight>
+                                    <RenderHighlight Icon={<B.Speedometer />} label="Mileage" value={`${carData.mileage.toLocaleString('de-DE')} km`} />
+                                    <RenderHighlight Icon={<B.Calendar />} label="Year" value={carData.year.toString()} />
+                                    <RenderHighlight Icon={<Br.GasPump />} label="Fuel Type" value={carData.fuel} />
+                                    <RenderHighlight Icon={<fl.Engine />} label="Engine Size" value={carData.engineSize} />
+                                    <RenderHighlight Icon={<fl.Transmission />} label="Gear Type" value={carData.details.specification.transmission} />
+                                    <RenderHighlight Icon={<M.PersonSearch />} label="Past owners" value={carData.details.ownership.numberOfOwners.toString()} />
                                 </S.HighlightDataContainer>
 
                                 <S.Title>Acessories and Features</S.Title>
@@ -87,152 +95,17 @@ function Car() {
                                     ))}
                                 </S.List>
                                 <S.Title>Details</S.Title>
-
                                 <S.DetailsContainer>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Maker
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.make}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Model
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.make}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Engine Size
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.engineSize}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Fuel
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.fuel}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Year
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.year}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Mileage
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.mileage} km
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            StartingBid
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.startingBid}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Vehicle Type
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.details.specification.vehicleType}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Colour
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.details.specification.colour}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Fuel
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.details.specification.fuel}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Transmission
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.details.specification.transmission}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Number of doors
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.details.specification.numberOfDoors}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Co2 emissions
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.details.specification.co2Emissions}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Nox emissions
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.details.specification.noxEmissions}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Number of keys
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.details.specification.numberOfKeys}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Log book
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.details.ownership.logBook}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Number of owners
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.details.ownership.numberOfOwners}
-                                        </S.DetailContent>
-                                    </S.Detail>
-                                    <S.Detail>
-                                        <S.DetailContent>
-                                            Date of registration
-                                        </S.DetailContent>
-                                        <S.DetailContent>
-                                            {carData.details.ownership.dateOfRegistration}
-                                        </S.DetailContent>
-                                    </S.Detail>
+                                    {details.map((item, index) => (
+                                        <S.Detail key={index}>
+                                            <S.DetailContent>
+                                                {item.label}
+                                            </S.DetailContent>
+                                            <S.DetailContent>
+                                                {item.value}
+                                            </S.DetailContent>
+                                        </S.Detail>
+                                    ))}
                                 </S.DetailsContainer>
                             </S.DataContainer>
 
