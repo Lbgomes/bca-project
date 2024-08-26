@@ -18,6 +18,13 @@ align-items: ${page === 'car' ? 'flex-start' : 'flex-end'};
 gap: ${page === 'car' ? '1.5rem' : '0'};
 `}
 `
+export const DataIconsContainer = styled.div`
+
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+
+`
 
 export const EventTimeContainer = styled.div`
   display: flex;
@@ -76,7 +83,7 @@ export const Info = styled.p<InfoProps>`
 export const DataContainer = styled.div`
 display: flex;
 flex-direction: column;
-gap: 1.2rem;
+gap: 1rem;
 width: 100%;
 align-self: end;
 

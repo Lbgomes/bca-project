@@ -135,7 +135,6 @@ a {
 export const Image = styled.img`
 ${({ theme }) => css`
 width: 170px;
-/* aspect-ratio: 1 / 1; */
 border-radius: ${theme.border.radius.small};
 `}
 `

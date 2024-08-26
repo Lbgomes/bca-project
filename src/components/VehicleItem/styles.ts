@@ -6,8 +6,8 @@ export const VehicleContainer = styled.div`
     border: ${theme.border.primary};
     border-radius: ${theme.border.radius.medium};
     width: 100%;
-    height: fit-content;
   a{
+    height: 90%;
     border-radius: 24px;
     display: flex;
     padding: 1rem;
@@ -30,6 +30,7 @@ export const SkeletonContainer = styled.div`
 
 `
 export const ImageContainer = styled.div`
+    align-self: flex-start;
   width: 215px;
   aspect-ratio: 13/10;
 

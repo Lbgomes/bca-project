@@ -4,6 +4,7 @@ import { addDays, differenceInDays, differenceInHours } from 'date-fns';
 import { VehicleType } from 'types/vehicle';
 import { useCar } from 'context/car';
 import * as S from './styles';
+import * as B from '@styled-icons/bootstrap';
 import * as Bs from '@styled-icons/boxicons-solid';
 import * as Br from '@styled-icons/boxicons-regular';
 import * as fl from '@styled-icons/fluentui-system-regular';
@@ -59,25 +60,41 @@ export const VehicleData = ({ vehicle, isFavorite, page = 'home' }: VehicleDataP
                 </S.TitleFavouriteContainer>
             </DataWithSkeleton>
 
-            <DataWithSkeleton width={90} height={19} ishidden={page === 'car'}>
-                <S.IconInfoContainer>
-                    <fl.TopSpeed size={16} color='#000' />
-                    <S.Info opacity={0.6}>
-                        {vehicle.mileage.toLocaleString('de-DE')}km
-                    </S.Info>
-                </S.IconInfoContainer>
-                <S.IconInfoContainer>
-                    <fl.TopSpeed size={16} color='#000' />
-                    <S.Info opacity={0.6}>
-                        {vehicle.mileage.toLocaleString('de-DE')}km
-                    </S.Info>
-                </S.IconInfoContainer>
-                <S.IconInfoContainer>
-                    <fl.TopSpeed size={16} color='#000' />
-                    <S.Info opacity={0.6}>
-                        {vehicle.mileage.toLocaleString('de-DE')}km
-                    </S.Info>
-                </S.IconInfoContainer>
+            <DataWithSkeleton width={90} height={126} ishidden={page === 'car'}>
+                <S.DataIconsContainer>
+
+                    <S.IconInfoContainer>
+                        <B.Calendar size={16} color='#000' />
+                        <S.Info opacity={0.6}>
+                            {vehicle.year}
+                        </S.Info>
+                    </S.IconInfoContainer>
+                    <S.IconInfoContainer>
+                        <Br.GasPump size={16} color='#000' />
+                        <S.Info opacity={0.6}>
+                            {vehicle.fuel}
+                        </S.Info>
+                    </S.IconInfoContainer>
+                    <S.IconInfoContainer>
+                        <fl.Engine size={16} color='#000' />
+                        <S.Info opacity={0.6}>
+                            {vehicle.engineSize}
+                        </S.Info>
+                    </S.IconInfoContainer>
+                    <S.IconInfoContainer>
+                        <fl.Transmission size={16} color='#000' />
+                        <S.Info opacity={0.6}>
+                            {vehicle.details.specification.transmission}
+                        </S.Info>
+                    </S.IconInfoContainer>
+                    <S.IconInfoContainer>
+                        <fl.TopSpeed size={16} color='#000' />
+                        <S.Info opacity={0.6}>
+                            {vehicle.mileage.toLocaleString('de-DE')}km
+                        </S.Info>
+                    </S.IconInfoContainer>
+                </S.DataIconsContainer>
+
             </DataWithSkeleton>
             <S.EventInfoContainer page={page}>
 
