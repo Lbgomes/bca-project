@@ -41,11 +41,9 @@ $ npm run start
 
 ### 🎯 Running the unity tests
 
-```bash
-# Install the dependences
-$ yarn install
+```
 
-# I'll run all the tests on the application
+# run all the tests on the application
 $ yarn run test
 
 ```
