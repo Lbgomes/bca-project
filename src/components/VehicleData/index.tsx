@@ -5,7 +5,6 @@ import { VehicleType } from 'types/vehicle';
 import { useCar } from 'context/car';
 import * as S from './styles';
 import * as B from '@styled-icons/bootstrap';
-import * as Bs from '@styled-icons/boxicons-solid';
 import * as Br from '@styled-icons/boxicons-regular';
 import * as fl from '@styled-icons/fluentui-system-regular';
 interface VehicleDataProps {
@@ -16,7 +15,7 @@ interface VehicleDataProps {
 }
 export const VehicleData = ({ vehicle, isFavorite, page = 'home' }: VehicleDataProps) => {
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0 });
-    const { handleIsLoading, handleFavourite } = useCar();
+    const { handleIsLoading } = useCar();
 
     const calculateTimeLeft = useCallback(() => {
         const now = new Date();
