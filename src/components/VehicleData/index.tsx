@@ -53,10 +53,6 @@ export const VehicleData = ({ vehicle, isFavorite, page = 'home' }: VehicleDataP
                         {vehicle.make} {vehicle.model}
                     </S.Title>
 
-                    <S.Favourite onClick={() => handleFavourite(vehicle)} page={page}>
-                        {isFavorite ? <Bs.Heart aria-label="favourite" /> : <Br.Heart aria-label="non-favourite" />}
-                    </S.Favourite>
-
                 </S.TitleFavouriteContainer>
             </DataWithSkeleton>
 

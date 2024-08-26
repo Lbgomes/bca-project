@@ -15,12 +15,13 @@ export const VehicleContainer = styled.div`
     text-decoration: none;
     gap: 2rem;
     
-    @media(max-width: 600px) {
+    @media(max-width: 650px) {
+      height: auto;
       align-items: start;
       flex-direction: column;
     }
   }
-  @media(max-width: 600px) {
+  @media(max-width: 650px) {
     max-width: 90%;
   }
 `}
@@ -34,7 +35,7 @@ export const ImageContainer = styled.div`
   width: 215px;
   aspect-ratio: 13/10;
 
-  @media(max-width: 600px) {
+  @media(max-width: 650px) {
     width: 100%;
   aspect-ratio: 13/10;
     .react-loading-skeleton{
@@ -50,7 +51,7 @@ export const Image = styled.img`
   width: 215px;
   aspect-ratio: 13/10;
   border-radius: ${theme.border.radius.smallHalf};
-  @media(max-width: 600px) {
+  @media(max-width: 650px) {
     width: 100%;
   }
   `}
@@ -78,7 +79,6 @@ export const Info = styled.p<InfoProps>`
 
 export const Favourite = styled.div`
 ${({ theme }) => css`
-border: none;
 width: 1.5rem;
 height: 1.5rem;
 display: flex;
@@ -89,11 +89,13 @@ top: 1rem;
 right: 1rem;
 padding: 0.3rem;
 cursor: pointer;
+border-radius: ${theme.border.radius.smallHalf};
+z-index: 10
 color: ${theme.colors.black};
 background-color:  ${theme.colors.white};
 @media (max-width: 768px) {
-  display: none;
-  position: unset;
+  top: 1.5rem;
+  right: 1.5rem;
 }
 `}
 `

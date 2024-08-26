@@ -7,6 +7,7 @@ import DataWithSkeleton from 'components/Skeleton';
 import { VehicleData } from 'components/VehicleData';
 import * as Bs from '@styled-icons/boxicons-solid';
 import * as Br from '@styled-icons/boxicons-regular';
+import { useNavigate } from 'react-router-dom';
 
 interface VehicleItemProps {
     index: number;

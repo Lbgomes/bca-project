@@ -115,26 +115,3 @@ export const IconInfoContainer = styled.div`
   align-items: center;
   gap: 0.5rem;
   `
-
-
-export const Favourite = styled.div<pageProps>`
-${({ theme, page }) => css`
-  border: none;
-  width: 1.5rem;
-  height: 1.5rem;
-  display: ${page === 'home' ? 'none' : 'flex'};
-  cursor: pointer;
-  border: none;
-cursor: pointer;
-color: ${theme.colors.black};
-background-color:  ${theme.colors.white};
-
-  svg {
-  color: ${theme.colors.black};
-
-  }
-@media (max-width: 768px) {
-  display: flex;
-}
-`}
-`
