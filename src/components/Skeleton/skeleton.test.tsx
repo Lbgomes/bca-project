@@ -35,7 +35,7 @@ describe('DataWithSkeleton Component', () => {
         expect(screen.queryByText('Test Content')).not.toBeInTheDocument();
     });
 
-    test('renders children when not loading', () => {
+    it('renders children when not loading', () => {
         mockUseCar.mockReturnValue({ isLoading: false });
 
         render(<DataWithSkeleton><div>Test Content</div></DataWithSkeleton>);
@@ -47,7 +47,7 @@ describe('DataWithSkeleton Component', () => {
         expect(skeletonElement).not.toBeInTheDocument();
     });
 
-    test('applies "ishidden" prop correctly', () => {
+    it('applies "ishidden" prop correctly', () => {
         mockUseCar.mockReturnValue({ isLoading: true });
 
         render(<DataWithSkeleton ishidden={'true'}><div>Test Content</div></DataWithSkeleton>);

@@ -25,7 +25,7 @@ describe('VehicleData Component', () => {
         jest.clearAllMocks();
     });
 
-    test('renders vehicle information correctly', async () => {
+    it('renders vehicle information correctly', async () => {
         render(
             <ThemeProvider theme={theme}>
                 <Router>
@@ -42,7 +42,7 @@ describe('VehicleData Component', () => {
         expect(screen.getByText(/5.090/i)).toBeInTheDocument();
     });
 
-    test('calculates and displays time left correctly', async () => {
+    it('calculates and displays time left correctly', async () => {
         render(<ThemeProvider theme={theme}>
             <Router>
                 <VehicleData vehicle={mockVehicle} isFavorite={false} />
@@ -55,7 +55,7 @@ describe('VehicleData Component', () => {
         });
     });
 
-    test('displays a message when the event has started', async () => {
+    it('displays a message when the event has started', async () => {
         const pastVehicle = {
             ...mockVehicle,
             auctionDateTime: new Date(Date.now() - 3600000).toISOString()
@@ -72,7 +72,7 @@ describe('VehicleData Component', () => {
         });
     });
 
-    test('renders element on home page', () => {
+    it('renders element on home page', () => {
         render(
             <ThemeProvider theme={theme}>
                 <Router>
@@ -83,7 +83,7 @@ describe('VehicleData Component', () => {
 
         expect(screen.getByLabelText('specification')).toBeVisible();
     })
-    test('not renders element on car page', () => {
+    it('not renders element on car page', () => {
         render(
             <ThemeProvider theme={theme}>
                 <Router>

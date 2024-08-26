@@ -6,7 +6,7 @@ import theme from 'styles/theme';
 
 describe('Header Component', () => {
 
-    test('renders the Header component', () => {
+    it('renders the Header component', () => {
         render(
 
             <ThemeProvider theme={theme}>
@@ -24,7 +24,7 @@ describe('Header Component', () => {
         expect(favouriteIcon).toBeInTheDocument();
     });
 
-    test('opens the modal when the favourite icon is clicked', () => {
+    it('opens the modal when the favourite icon is clicked', () => {
         render(<ThemeProvider theme={theme}>
             <Router>
                 <Header />
@@ -38,7 +38,7 @@ describe('Header Component', () => {
         expect(modalElement).toBeInTheDocument();
     });
 
-    test('closes the modal when the close icon is clicked', () => {
+    it('closes the modal when the close icon is clicked', () => {
         render(<ThemeProvider theme={theme}>
             <Router>
                 <Header />
@@ -57,7 +57,7 @@ describe('Header Component', () => {
         expect(modalElement).not.toBeInTheDocument();
     });
 
-    test('renders the modal content correctly', () => {
+    it('renders the modal content correctly', () => {
         render(<ThemeProvider theme={theme}>
             <Router>
                 <Header />
@@ -71,7 +71,7 @@ describe('Header Component', () => {
 
     });
 
-    test('modal hire me link opens in a new tab', () => {
+    it('modal hire me link opens in a new tab', () => {
         render(<ThemeProvider theme={theme}>
             <Router>
                 <Header />
