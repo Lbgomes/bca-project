@@ -21,7 +21,7 @@ function Header() {
             </S.HeaderContainer>
 
             {isModalOpen && <S.ModalContainer aria-label="modal" >
-                <S.Modal aria-label="modal">
+                <S.Modal>
                     <S.CloseContainer>
                         <Br.X size={26} onClick={() => setIsModalOpen(false)} />
                     </S.CloseContainer>

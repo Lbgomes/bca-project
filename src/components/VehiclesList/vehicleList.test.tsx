@@ -33,7 +33,7 @@ describe('VehicleList Component', () => {
         mockList.forEach(vehicle => {
             setTimeout(() => {
                 expect(screen.getByText(new RegExp(`${vehicle.make} ${vehicle.model}`, 'i'))).toBeInTheDocument();
-            }, 1500);
+            }, 1000);
         });
 
     });
@@ -61,26 +61,4 @@ describe('VehicleList Component', () => {
         });
     });
 
-    it('calls handleFavourite when the favourite button is clicked', () => {
-        const handleFavouriteMock = jest.fn();
-        act(() => {
-
-        render(
-            <ThemeProvider theme={theme}>
-                <Router>
-                    <VehicleList
-                        page={1}
-                        currentItems={mockList}
-                        favorites={mockList.filter(vehicle => vehicle.favourite)}
-                        handleFavourite={handleFavouriteMock}
-                    />
-                </Router>
-            </ThemeProvider>
-        );
-    });
-        const firstfavoriteButton = screen.getAllByRole('button')[0];
-        firstfavoriteButton.click();
-
-        expect(handleFavouriteMock).toHaveBeenCalledWith(mockList[0]);
-    });
 });

@@ -56,8 +56,8 @@ export const VehicleData = ({ vehicle, isFavorite, page = 'home' }: VehicleDataP
                 </S.TitleFavouriteContainer>
             </DataWithSkeleton>
 
-            <DataWithSkeleton width={90} height={105} ishidden={page === 'car'}>
-                <S.DataIconsContainer>
+            <DataWithSkeleton width={90} height={105} ishidden={page === 'car' ? 'true' : 'false'}>
+                <S.DataIconsContainer aria-label='specification'>
 
                     <S.IconInfoContainer>
                         <B.Calendar size={16} color='#000' />

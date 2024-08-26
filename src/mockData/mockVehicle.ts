@@ -7,7 +7,7 @@ export const mockVehicle: VehicleType = {
     "fuel": "petrol",
     "year": 2023,
     "mileage": 5090,
-    "auctionDateTime": "2024/04/15 13:00:00",
+    "auctionDateTime": "2024/09/15 13:00:00",
     "startingBid": 15000,
     "favourite": false,
     "details": {

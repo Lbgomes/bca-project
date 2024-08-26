@@ -32,7 +32,7 @@ const VehicleItem = ({ index, vehicle, handleCarData, handleFavourite, isFavorit
 
                 <VehicleData vehicle={vehicle} isFavorite={isFavorite} />
             </Link>
-                <S.Favourite onClick={() => handleFavourite(vehicle)}>
+                <S.Favourite onClick={() => handleFavourite(vehicle)} aria-label='favourite-button'>
                     {isFavorite ? <Bs.Heart aria-label="favourite" /> : <Br.Heart aria-label="non-favourite" />}
                 </S.Favourite>
 

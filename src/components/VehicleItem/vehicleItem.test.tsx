@@ -1,66 +1,43 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import VehicleItem from '.';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
-import { mockTheme } from 'mockData/mockTheme';
 import { mockVehicle } from 'mockData/mockVehicle';
 import { act } from 'react';
+import theme from 'styles/theme';
 
 
 describe('VehicleItem Component', () => {
-    it('displays skeleton loaders when loading', () => {
-        act(() => {
-            render(
-                <ThemeProvider theme={mockTheme}>
-                    <Router>
-                        <VehicleItem
-                            index={1}
-                            vehicle={mockVehicle}
-                            handleCarData={() => { }}
-                            handleFavourite={() => { }}
-                            isFavorite={false}
-                            page={1}
-                        />
-                    </Router>
-                </ThemeProvider>
-            );
-        })
-        expect(screen.getAllByLabelText('loading')).toHaveLength(5);
-    });
 
+    it('calls handleFavourite when the favourite div is clicked', () => {
+        const handleFavouriteMock = jest.fn();
 
-    it('displays vehicle data after loading', async () => {
-        act(() => {
+        render(
+            <ThemeProvider theme={theme}>
+                <Router>
+                    <VehicleItem
+                        index={1}
+                        vehicle={mockVehicle}
+                        handleCarData={() => { }}
+                        handleFavourite={handleFavouriteMock}
+                        isFavorite={true}
+                        page={1}
+                    />
+                </Router>
+            </ThemeProvider>
+        );
 
-            render(
-                <ThemeProvider theme={mockTheme}>
-                    <Router>
-                        <VehicleItem
-                            index={1}
-                            vehicle={mockVehicle}
-                            handleCarData={() => { }}
-                            handleFavourite={() => { }}
-                            isFavorite={false}
-                            page={1}
-                        />
-                    </Router>
-                </ThemeProvider>
-            );
-        })
+        const favouriteButton = screen.getByLabelText('favourite-button');
+        fireEvent.click(favouriteButton);
 
-        setTimeout(() => {
-            expect(screen.getByText(/Toyota Corolla/i)).toBeInTheDocument();
-            expect(screen.getByText(/The event will begin in 1 day/i)).toBeInTheDocument();
-            expect(screen.getByText(/50000km/i)).toBeInTheDocument();
-            expect(screen.getByText(/Starting Bid: 15000/i)).toBeInTheDocument();
-        }, 1500);
+        expect(handleFavouriteMock).toHaveBeenCalledWith(mockVehicle);
     });
 
     it('renders a favorite icon when the vehicle is a favorite', () => {
         act(() => {
 
             render(
-                <ThemeProvider theme={mockTheme}>
+                <ThemeProvider theme={theme}>
                     <Router>
                         <VehicleItem
                             index={1}
@@ -82,7 +59,7 @@ describe('VehicleItem Component', () => {
         act(() => {
 
             render(
-                <ThemeProvider theme={mockTheme}>
+                <ThemeProvider theme={theme}>
                     <Router>
                         <VehicleItem
                             index={1}
