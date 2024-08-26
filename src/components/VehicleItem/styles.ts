@@ -78,8 +78,8 @@ export const Info = styled.p<InfoProps>`
 export const Favourite = styled.div`
 ${({ theme }) => css`
 border: none;
-width: 2rem;
-height: 2rem;
+width: 1.5rem;
+height: 1.5rem;
 display: flex;
 justify-content: center;
 align-items: center;

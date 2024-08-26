@@ -66,6 +66,18 @@ export const VehicleData = ({ vehicle, isFavorite, page = 'home' }: VehicleDataP
                         {vehicle.mileage.toLocaleString('de-DE')}km
                     </S.Info>
                 </S.IconInfoContainer>
+                <S.IconInfoContainer>
+                    <fl.TopSpeed size={16} color='#000' />
+                    <S.Info opacity={0.6}>
+                        {vehicle.mileage.toLocaleString('de-DE')}km
+                    </S.Info>
+                </S.IconInfoContainer>
+                <S.IconInfoContainer>
+                    <fl.TopSpeed size={16} color='#000' />
+                    <S.Info opacity={0.6}>
+                        {vehicle.mileage.toLocaleString('de-DE')}km
+                    </S.Info>
+                </S.IconInfoContainer>
             </DataWithSkeleton>
             <S.EventInfoContainer page={page}>
 
