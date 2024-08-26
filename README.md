@@ -9,7 +9,6 @@ Project consists of a list of vehicles for an auction, listing them in general a
 
 
 - **[React](https://pt-br.reactjs.org/)**
-- **[Next](https://nextjs.org/)**
 - **[TypeScript](https://www.typescriptlang.org/)**
 - **[Styled Components](https://styled-components.com/)**
 - **[Jest](https://jestjs.io)**
