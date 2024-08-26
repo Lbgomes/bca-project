@@ -46,6 +46,6 @@ $ npm run start
 $ npm install
 
 # run all the tests on the application
-$ npm test
+$ npm test a
 
 ```
