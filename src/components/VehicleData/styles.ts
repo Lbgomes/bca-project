@@ -10,7 +10,7 @@ export const AuctionContainer = styled.div`
   `
 
 export const EventInfoContainer = styled.div<pageProps>`
-  ${({page = 'home' }) => css`
+  ${({ page = 'home' }) => css`
 justify-content: space-between;
 display: flex;
 flex-direction: ${page === 'car' ? 'column' : 'row'};
@@ -110,17 +110,22 @@ export const IconInfoContainer = styled.div`
   `
 
 
-export const Favourite = styled.button<pageProps>`
+export const Favourite = styled.div<pageProps>`
 ${({ theme, page }) => css`
-border: none;
-width: 2rem;
-height: 2rem;
-display: ${page === 'home' ? 'none' : 'flex'};
-justify-content: center;
-align-items: center;
-padding: 0.3rem;
+  border: none;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: ${page === 'home' ? 'none' : 'flex'};
+  cursor: pointer;
+  border: none;
 cursor: pointer;
+color: ${theme.colors.black};
 background-color:  ${theme.colors.white};
+
+  svg {
+  color: ${theme.colors.black};
+
+  }
 @media (max-width: 768px) {
   display: flex;
 }
