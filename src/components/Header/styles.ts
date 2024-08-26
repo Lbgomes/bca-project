@@ -33,7 +33,7 @@ display: flex;
     cursor: pointer;
 `
 
-export const Favourite = styled.button`
+export const Favourite = styled.div`
 ${({ theme }) => css`
 border: none;
 width: 1.5rem;

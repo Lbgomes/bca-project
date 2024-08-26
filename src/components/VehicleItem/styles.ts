@@ -82,8 +82,6 @@ ${({ theme }) => css`
 width: 1.5rem;
 height: 1.5rem;
 display: flex;
-justify-content: center;
-align-items: center;
 position: absolute;
 top: 1rem;
 right: 1rem;
