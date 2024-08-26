@@ -93,15 +93,22 @@ function Home() {
             }));
         }
 
-        const filtered = vehiclesData.filter(vehicle => {
+        let vehiclesToFilter = vehiclesData;
+
+        if (filters.isFavorite.value === 'favorites') {
+            vehiclesToFilter = vehiclesData.filter(vehicle =>
+                favorites.some(fav => fav === vehicle)
+            );
+        }
+
+        const filtered = vehiclesToFilter.filter(vehicle => {
             const isMakerMatch = filters.maker.value !== '0' ? vehicle.make === filters.maker.label : true;
             const isModelMatch = filters.model.value !== '0' ? vehicle.model === filters.model.label : true;
-            const isFavoriteMatch = filters.isFavorite.value === 'all' ? true : vehicle.favourite === (filters.isFavorite.value === 'favorites');
 
             const isBidMinMatch = filters.bidMin.value !== '0' ? vehicle.startingBid >= bidMinValue : true;
             const isBidMaxMatch = filters.bidMax.value !== '0' ? vehicle.startingBid <= bidMaxValue : true;
 
-            return isMakerMatch && isModelMatch && isBidMinMatch && isBidMaxMatch && isFavoriteMatch;
+            return isMakerMatch && isModelMatch && isBidMinMatch && isBidMaxMatch;
         });
 
         const sorted = filtered.sort((a, b) => {
@@ -127,7 +134,7 @@ function Home() {
 
         return sorted;
 
-    }, [vehiclesData, filters]);
+    }, [vehiclesData, filters, favorites]);
 
     const endOffset = itemOffset + itemsPerPage;
     const pageCount = Math.ceil(filteredVehicles.length / itemsPerPage);
@@ -159,67 +166,67 @@ function Home() {
 
     return (
         <S.Main>
-                <S.FiltersContainer>
-                    <E.Options2Outline size={24} onClick={() => setIsFiltersOpen(!isFiltersOpen)} />
-                    {
-                        isFiltersOpen && (
-                            <S.FilterGroup>
-                                <Filter title="Maker" setFilter={handleFilterChange('maker')} options={allMakers} />
-                                <Filter title="Model" setFilter={handleFilterChange('model')} options={allModels} isDisabled={filters.maker.value === '0'} />
-                                <Filter title="Starting Bid Min" setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMin} />
-                                <Filter title="Starting Bid Max" setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMax} />
-                                <Filter title="Sort by" setFilter={handleFilterChange('sortBy')} options={sortByOptions} />
-                                <S.SwitchContainer>
-                                    <SwitchSelector
-                                        onChange={(e: any) => {
-                                            handleIsLoading(true);
-                                            setFilters(prevFilters => ({
-                                                ...prevFilters,
-                                                isFavorite: { label: e.label, value: e },
-                                            }))
-                                        }}
-                                        options={FavoriteOptions}
-                                        wrapperBorderRadius={8}
-                                        optionBorderRadius={6}
-                                        initialSelectedIndex={0}
-                                        backgroundColor={"#EEEEEE"}
-                                        fontColor={"#585858"}
-                                    />
-                                </S.SwitchContainer>
-                            </S.FilterGroup>
+            <S.FiltersContainer>
+                <E.Options2Outline size={24} onClick={() => setIsFiltersOpen(!isFiltersOpen)} />
+                {
+                    isFiltersOpen && (
+                        <S.FilterGroup>
+                            <Filter title="Maker" setFilter={handleFilterChange('maker')} options={allMakers} />
+                            <Filter title="Model" setFilter={handleFilterChange('model')} options={allModels} isDisabled={filters.maker.value === '0'} />
+                            <Filter title="Starting Bid Min" setFilter={handleFilterChange('bidMin')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMin} />
+                            <Filter title="Starting Bid Max" setFilter={handleFilterChange('bidMax')} options={allBids.sort((a, b) => parseInt(a.label) - parseInt(b.label))} value={filters.bidMax} />
+                            <Filter title="Sort by" setFilter={handleFilterChange('sortBy')} options={sortByOptions} />
+                            <S.SwitchContainer>
+                                <SwitchSelector
+                                    onChange={(e: any) => {
+                                        handleIsLoading(true);
+                                        setFilters(prevFilters => ({
+                                            ...prevFilters,
+                                            isFavorite: { label: e.label, value: e },
+                                        }))
+                                    }}
+                                    options={FavoriteOptions}
+                                    wrapperBorderRadius={8}
+                                    optionBorderRadius={6}
+                                    initialSelectedIndex={0}
+                                    backgroundColor={"#EEEEEE"}
+                                    fontColor={"#585858"}
+                                />
+                            </S.SwitchContainer>
+                        </S.FilterGroup>
 
-                        )
-                    }
+                    )
+                }
 
-                </S.FiltersContainer>
-                <S.ResultsContainer>
-                    <S.Title>Results</S.Title>
-                    <VehicleList currentItems={currentItems} handleFavourite={handleFavourite} favorites={favorites} page={currentPage} />
+            </S.FiltersContainer>
+            <S.ResultsContainer>
+                <S.Title>Results</S.Title>
+                <VehicleList currentItems={currentItems} handleFavourite={handleFavourite} favorites={favorites} page={currentPage} />
 
-                </S.ResultsContainer>
-                <S.PaginationContainer>
-                    <S.PaginationWrapper>
-                        <ReactPaginate
-                            breakLabel="..."
-                            nextClassName='arrow'
-                            previousClassName='arrow'
-                            onPageChange={handlePageClick}
-                            pageRangeDisplayed={1}
-                            pageCount={pageCount}
-                            activeClassName='active'
-                            containerClassName={'pagination'}
-                            renderOnZeroPageCount={null}
-                        />
-                    </S.PaginationWrapper>
-                    <S.ItemPerPageContainer>
-                        <S.ItemPerPage
-                            onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
-                            value={itemsPerPage}
-                            type="number"
-                        />
-                        results per page
-                    </S.ItemPerPageContainer>
-                </S.PaginationContainer>
+            </S.ResultsContainer>
+            <S.PaginationContainer>
+                <S.PaginationWrapper>
+                    <ReactPaginate
+                        breakLabel="..."
+                        nextClassName='arrow'
+                        previousClassName='arrow'
+                        onPageChange={handlePageClick}
+                        pageRangeDisplayed={1}
+                        pageCount={pageCount}
+                        activeClassName='active'
+                        containerClassName={'pagination'}
+                        renderOnZeroPageCount={null}
+                    />
+                </S.PaginationWrapper>
+                <S.ItemPerPageContainer>
+                    <S.ItemPerPage
+                        onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                        value={itemsPerPage}
+                        type="number"
+                    />
+                    results per page
+                </S.ItemPerPageContainer>
+            </S.PaginationContainer>
 
         </S.Main>
     );

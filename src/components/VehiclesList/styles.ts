@@ -14,3 +14,6 @@ export const Container = styled.div`
 
 `
 
+export const NoResults = styled.div`
+
+`

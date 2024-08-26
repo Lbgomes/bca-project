@@ -12,7 +12,7 @@ function Header() {
             <S.HeaderContainer>
                 <S.Container>
                     <Link to={'/'}>
-                        <S.Title ><B.Asterisk size={20} />   FESC</S.Title>
+                        <S.Title ><B.Asterisk size={20} />FESC</S.Title>
                     </Link>
                     <S.Favourite onClick={() => setIsModalOpen(true)} >
                         <Br.Heart aria-label="favourite" />

@@ -25,6 +25,7 @@ const VehicleList = ({ page, currentItems, handleFavourite, favorites }: Vehicle
                     isFavorite={favorites.includes(vehicle)}
                 />
             ))}
+            {currentItems.length === 0 && <S.NoResults>No results found</S.NoResults>}
         </S.Container>
     );
 };
