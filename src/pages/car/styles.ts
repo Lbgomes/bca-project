@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Main = styled.div`
     width: 100%;
@@ -9,6 +9,7 @@ export const Main = styled.div`
 `
 
 export const Container = styled.div`
+    max-width: 800px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -38,26 +39,42 @@ export const Image = styled.img`
     border-radius: ${({ theme }) => theme.border.radius.small};
 `
 
+interface InfoContainerProps {
+    device: 'mobile' | 'desktop'
+}
 
-export const InfoContainer = styled.div`
-    display: flex;
+export const InfoContainer = styled.div<InfoContainerProps>`
+    ${({ theme, device }) => css`
+    display: ${device === 'mobile' ? 'none' : 'flex'} ;
     flex-direction: column;
     gap: 1rem;
     padding: 1rem;
+    margin-top: 1rem;
     height: fit-content;
-    background-color: ${({ theme }) => theme.colors.white};
+    align-self: flex-start;
+    background-color: ${theme.colors.white};
     max-width: 400px;
-    width: 100%;
+    @media(max-width: 800px){
+        display: ${device === 'mobile' ? 'flex' : 'none'} ;
+    }
+`}
 `
 export const InfoTitle = styled.h1`
+    ${({ theme }) => css`
 
-    color: ${({ theme }) => theme.colors.black};
-    font-size: ${({ theme }) => theme.sizes.small};
+    color: ${theme.colors.black};
+    font-size: ${theme.sizes.small};
+
+`}
 `
 export const InfoText = styled.h2`
-    color: ${({ theme }) => theme.colors.black};
-    font-size: ${({ theme }) => theme.sizes.large};
+    ${({ theme }) => css`
+
+    color: ${theme.colors.black};
+    font-size: ${theme.sizes.large};
     font-weight: 700;
+`}
+
 `
 
 export const DataContainer = styled.div`

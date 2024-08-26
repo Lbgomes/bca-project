@@ -26,17 +26,18 @@ function Car() {
         <S.Main>
             {
                 carData && (
+                    <>
                         <S.Container>
                             <S.ContentContainer>
                                 <S.ImageContainer>
                                     <S.Image src={placeholder} />
                                 </S.ImageContainer>
-                                <S.InfoContainer>
-                                    <VehicleData vehicle={carData} isFavorite={carData.favourite} page="car" />
-                                </S.InfoContainer>
+
                             </S.ContentContainer>
                             <S.DataContainer>
-
+                                <S.InfoContainer device="mobile">
+                                    <VehicleData vehicle={carData} isFavorite={carData.favourite} page="car" />
+                                </S.InfoContainer>
                                 <S.Title>Highlights</S.Title>
 
                                 <S.HighlightDataContainer>
@@ -236,9 +237,13 @@ function Car() {
                             </S.DataContainer>
 
                         </S.Container>
+                        <S.InfoContainer device="desktop">
+                            <VehicleData vehicle={carData} isFavorite={carData.favourite} page="car" />
+                        </S.InfoContainer>
+                    </>
+
                 )
             }
-
         </S.Main>
 
     )
